@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso Intensivo de 30 Días: Desarrollo Web</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* bg-slate-50 */
+        }
+        /* Estilos para la barra de desplazamiento */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9; /* bg-slate-100 */
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #94a3b8; /* bg-slate-400 */
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64748b; /* bg-slate-500 */
+        }
+        /* Estilo para el día activo en la barra lateral */
+        .day-link.active {
+            background-color: #e0f2fe; /* bg-sky-100 */
+            color: #0369a1; /* text-sky-700 */
+            font-weight: 600;
+        }
+        /* Animación de entrada */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <div class="flex h-screen">
+        <!-- Barra Lateral de Navegación -->
+        <aside class="w-72 bg-white border-r border-slate-200 flex flex-col">
+            <div class="p-4 border-b border-slate-200">
+                <h1 class="text-xl font-bold text-slate-900">Curso de 30 Días</h1>
+                <p class="text-sm text-slate-500">Desarrollo Web Full-Stack</p>
+            </div>
+            <nav id="course-navigation" class="flex-1 overflow-y-auto p-4 space-y-2">
+                <!-- Los días del curso se generarán aquí con JavaScript -->
+            </nav>
+            <div class="p-4 border-t border-slate-200">
+                <div class="w-full bg-slate-200 rounded-full h-2.5">
+                    <div id="progress-bar" class="bg-sky-600 h-2.5 rounded-full" style="width: 0%"></div>
+                </div>
+                <p id="progress-text" class="text-center text-sm text-slate-600 mt-2">0% completado</p>
+            </div>
+        </aside>
+
+        <!-- Contenido Principal -->
+        <main class="flex-1 p-6 sm:p-8 lg:p-10 overflow-y-auto">
+            <div id="main-content" class="max-w-4xl mx-auto">
+                <!-- El contenido del día seleccionado se mostrará aquí -->
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- ESTRUCTURA DE DATOS DEL CURSO ---
+            // Aquí puedes modificar el contenido de cada día.
+            const courseData = {
+                // Semana 1: Fundamentos
+                1: { title: "Día 1: ¡Bienvenida y Configuración!", content: "Configura tu entorno de desarrollo: VS Code, Node.js y Git. Aprende los conceptos básicos de la web.", videoId: "dQw4w9WgXcQ" },
+                2: { title: "Día 2: Introducción a HTML", content: "Descubre la estructura de un documento HTML. Aprende sobre etiquetas, elementos y atributos.", code: `<!DOCTYPE html>\n<html>\n<head>\n  <title>Mi Primera Página</title>\n</head>\n<body>\n  <h1>Hola, Mundo!</h1>\n</body>\n</html>` },
+                3: { title: "Día 3: HTML Semántico", content: "Usa etiquetas como `<header>`, `<nav>`, `<main>`, `<article>`, `<footer>` para dar significado a tu contenido." },
+                4: { title: "Día 4: Formularios en HTML", content: "Aprende a recolectar datos del usuario con formularios, inputs, textareas y botones." },
+                5: { title: "Día 5: Introducción a CSS", content: "Estiliza tu HTML. Aprende sobre selectores, propiedades y valores de CSS.", code: `h1 {\n  color: blue;\n  font-size: 24px;\n}` },
+                6: { title: "Día 6: El Modelo de Caja en CSS", content: "Entiende los conceptos de `margin`, `border`, `padding` y `content`." },
+                7: { title: "Día 7: Repaso Semanal y Mini-Proyecto 1", content: "Construye una página de biografía personal aplicando todo lo aprendido en la semana." },
+                // Semana 2: CSS Avanzado y JavaScript Básico
+                8: { title: "Día 8: Flexbox", content: "Domina el layout unidimensional con Flexbox para alinear elementos de forma sencilla." },
+                9: { title: "Día 9: CSS Grid", content: "Crea layouts complejos y bidimensionales con CSS Grid." },
+                10: { title: "Día 10: Diseño Responsivo", content: "Asegúrate de que tu sitio se vea bien en todos los dispositivos usando Media Queries." },
+                11: { title: "Día 11: Introducción a JavaScript", content: "Escribe tu primer script. Aprende sobre variables, tipos de datos y la consola." },
+                12: { title: "Día 12: Manipulación del DOM", content: "Usa JavaScript para seleccionar y modificar elementos HTML y CSS de forma dinámica." },
+                13: { title: "Día 13: Eventos en JavaScript", content: "Haz tu página interactiva respondiendo a clics, envíos de formulario y movimientos del ratón." },
+                14: { title: "Día 14: Repaso Semanal y Mini-Proyecto 2", content: "Crea una calculadora interactiva con HTML, CSS y JavaScript." },
+                // Semana 3: JavaScript Avanzado y Herramientas
+                15: { title: "Día 15: Funciones y Scopes", content: "Profundiza en las funciones, parámetros, valores de retorno y el alcance de las variables." },
+                16: { title: "Día 16: Arrays y Objetos", content: "Aprende a trabajar con colecciones de datos y estructuras complejas." },
+                17: { title: "Día 17: Fetch API y JSON", content: "Comunícate con servidores para obtener y enviar datos en formato JSON." },
+                18: { title: "Día 18: Programación Asíncrona", content: "Entiende `async/await` y las Promesas para manejar operaciones que toman tiempo." },
+                19: { title: "Día 19: Git y GitHub", content: "Aprende a usar el control de versiones para colaborar y gestionar tu código." },
+                20: { title: "Día 20: Introducción a React", content: "Descubre por qué React es tan popular y crea tu primer componente." },
+                21: { title: "Día 21: Repaso Semanal y Mini-Proyecto 3", content: "Crea una aplicación que consume una API pública (ej. de clima o de Pokémon)." },
+                // Semana 4: Proyecto Final
+                22: { title: "Día 22: Planificación del Proyecto Final", content: "Define la idea, las características y la estructura de tu proyecto final." },
+                23: { title: "Día 23: Estructura y Componentes en React", content: "Construye la estructura de carpetas y los componentes principales de tu aplicación." },
+                24: { title: "Día 24: Estado y Props en React", content: "Maneja el estado de tus componentes y pasa datos entre ellos." },
+                25: { title: "Día 25: Enrutamiento en React", content: "Crea una aplicación de varias páginas (SPA) con React Router." },
+                26: { title: "Día 26: Estilizando en React", content: "Aplica estilos a tus componentes usando Styled Components o Tailwind CSS." },
+                27: { title: "Día 27: Conectando con una API", content: "Integra una API externa a tu proyecto de React." },
+                28: { title: "Día 28: Pruebas y Depuración", content: "Asegura la calidad de tu código y aprende a encontrar y solucionar errores." },
+                29: { title: "Día 29: Despliegue (Deploy)", content: "Publica tu proyecto final en internet usando servicios como Netlify o Vercel." },
+                30: { title: "Día 30: ¡Felicitaciones y Próximos Pasos!", content: "¡Lo lograste! Revisa tu portafolio y explora los siguientes pasos en tu carrera como desarrollador." }
+            };
+            const totalDays = Object.keys(courseData).length;
+
+            // --- ESTADO DE LA APLICACIÓN ---
+            let completedDays = new Set();
+
+            // --- ELEMENTOS DEL DOM ---
+            const navigation = document.getElementById('course-navigation');
+            const mainContent = document.getElementById('main-content');
+            const progressBar = document.getElementById('progress-bar');
+            const progressText = document.getElementById('progress-text');
+
+            // --- FUNCIONES ---
+
+            // Cargar el progreso desde localStorage
+            function loadProgress() {
+                const savedProgress = localStorage.getItem('courseProgress');
+                if (savedProgress) {
+                    completedDays = new Set(JSON.parse(savedProgress));
+                }
+            }
+
+            // Guardar el progreso en localStorage
+            function saveProgress() {
+                localStorage.setItem('courseProgress', JSON.stringify(Array.from(completedDays)));
+            }
+
+            // Actualizar la barra de progreso
+            function updateProgress() {
+                const percentage = Math.round((completedDays.size / totalDays) * 100);
+                progressBar.style.width = `${percentage}%`;
+                progressText.textContent = `${percentage}% completado (${completedDays.size}/${totalDays} días)`;
+            }
+
+            // Mostrar el contenido de un día específico
+            function showDay(day) {
+                // Actualizar la clase activa en la navegación
+                document.querySelectorAll('.day-link').forEach(link => link.classList.remove('active'));
+                const activeLink = document.querySelector(`.day-link[data-day="${day}"]`);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
+
+                const data = courseData[day];
+                if (!data) return;
+
+                let contentHTML = `
+                    <div class="fade-in">
+                        <div class="flex justify-between items-start mb-6">
+                            <div>
+                                <p class="text-sm font-semibold text-sky-600">Día ${day}</p>
+                                <h2 class="text-3xl lg:text-4xl font-extrabold text-slate-900 mt-1">${data.title}</h2>
+                            </div>
+                            <label class="flex items-center cursor-pointer select-none">
+                                <span class="text-sm font-medium text-slate-600 mr-3">Marcar como completado</span>
+                                <div class="relative">
+                                    <input type="checkbox" id="complete-checkbox" class="sr-only" ${completedDays.has(day) ? 'checked' : ''}>
+                                    <div class="w-11 h-6 bg-slate-200 rounded-full shadow-inner"></div>
+                                    <div class="dot absolute w-4 h-4 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                            <p class="text-lg text-slate-700 mb-6">${data.content}</p>
+                            
+                            ${data.videoId ? `
+                            <div class="mb-6">
+                                <h3 class="text-xl font-bold mb-3">Video de la Lección</h3>
+                                <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow">
+                                    <iframe src="https://www.youtube.com/embed/${data.videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>
+                            </div>` : ''}
+
+                            ${data.code ? `
+                            <div>
+                                <h3 class="text-xl font-bold mb-3">Ejemplo de Código</h3>
+                                <div class="bg-slate-800 text-white p-4 rounded-lg overflow-x-auto">
+                                    <pre><code>${data.code.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</code></pre>
+                                </div>
+                            </div>` : ''}
+                        </div>
+                    </div>
+                `;
+                mainContent.innerHTML = contentHTML;
+
+                // Lógica del checkbox de completado
+                const checkbox = document.getElementById('complete-checkbox');
+                const dot = checkbox.nextElementSibling.nextElementSibling;
+                
+                function updateCheckboxStyle() {
+                    if (checkbox.checked) {
+                        checkbox.nextElementSibling.classList.add('bg-sky-500');
+                        dot.style.transform = 'translateX(100%)';
+                    } else {
+                        checkbox.nextElementSibling.classList.remove('bg-sky-500');
+                        dot.style.transform = 'translateX(0)';
+                    }
+                }
+                updateCheckboxStyle();
+
+                checkbox.addEventListener('change', () => {
+                    if (checkbox.checked) {
+                        completedDays.add(day);
+                    } else {
+                        completedDays.delete(day);
+                    }
+                    updateCheckboxStyle();
+                    saveProgress();
+                    updateProgress();
+                    updateNavCheckmarks();
+                });
+            }
+            
+            // Actualizar los íconos de check en la navegación
+            function updateNavCheckmarks() {
+                document.querySelectorAll('.day-link').forEach(link => {
+                    const day = parseInt(link.dataset.day);
+                    const checkIcon = link.querySelector('.check-icon');
+                    if (completedDays.has(day)) {
+                        checkIcon.innerHTML = '<i class="ph-fill ph-check-circle text-green-500"></i>';
+                    } else {
+                        checkIcon.innerHTML = '<i class="ph ph-circle-dashed text-slate-400"></i>';
+                    }
+                });
+            }
+
+            // Inicializar la aplicación
+            function init() {
+                // Generar la navegación
+                let navHTML = '';
+                for (let i = 1; i <= totalDays; i++) {
+                    navHTML += `
+                        <a href="#" class="day-link flex items-center justify-between p-2 rounded-md hover:bg-slate-100 transition-colors" data-day="${i}">
+                            <span class="flex items-center">
+                                <span class="check-icon mr-3 text-lg"></span>
+                                Día ${i}: ${courseData[i].title.substring(0, 20)}...
+                            </span>
+                            <i class="ph ph-caret-right text-slate-400"></i>
+                        </a>
+                    `;
+                }
+                navigation.innerHTML = navHTML;
+
+                // Añadir event listeners a los links de navegación
+                document.querySelectorAll('.day-link').forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const day = parseInt(link.dataset.day);
+                        showDay(day);
+                    });
+                });
+                
+                loadProgress();
+                updateProgress();
+                updateNavCheckmarks();
+                showDay(1); // Mostrar el primer día por defecto
+            }
+
+            init();
+        });
+    </script>
+</body>
+</html>
