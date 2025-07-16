@@ -1,898 +1,178 @@
 <!DOCTYPE html>
-<html lang="es" class="">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Curso Intensivo de Computación para Estudiantes</title>
+    <title>La Perseverancia Resolutora</title>
+    <!-- Incluir Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            transition: background-color 0.3s, color 0.3s;
-            cursor: none; /* Ocultamos el cursor por defecto */
+            background-color: #f0f4f8; /* Un gris azulado claro para el fondo */
+            color: #334155; /* Texto principal en gris oscuro */
+            line-height: 1.6;
         }
-        .gradient-text {
-            background-image: linear-gradient(to right, #ec4899, #d946ef, #8b5cf6);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+        .section-title {
+            color: #1e3a8a; /* Azul oscuro para los títulos de sección */
+            font-weight: 700;
         }
-        .day-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 1s ease-in-out;
+        .subsection-title {
+            color: #1d4ed8; /* Un azul medio para los subtítulos */
+            font-weight: 600;
         }
-        .day-content.open {
-            max-height: 8000px; /* Aumentado para contenido más largo y quiz */
+        .card {
+            background-color: #ffffff;
+            border-radius: 1rem; /* Bordes redondeados */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Sombra suave */
+            padding: 2.5rem; /* Relleno generoso */
+            margin-bottom: 2rem; /* Espacio entre tarjetas */
         }
-        .quiz-option {
-            transition: all 0.2s ease-in-out;
+        .list-item {
+            margin-bottom: 0.75rem;
+            padding-left: 1.5rem;
+            position: relative;
         }
-        .quiz-option.correct {
-            background-color: #22c55e !important;
-            border-color: #16a34a !important;
-            color: white !important;
-            transform: scale(1.02);
-        }
-        .quiz-option.incorrect {
-            background-color: #ef4444 !important;
-            border-color: #dc2626 !important;
-            color: white !important;
-            opacity: 0.7;
-        }
-        .quiz-option:disabled {
-            cursor: not-allowed;
-        }
-        /* Estilos para el cursor personalizado */
-        .cursor-dot { /* Removed width/height and background-image to make it invisible */
-            pointer-events: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            border-radius: 50%;
-            opacity: 0;
-            transform: translate(-50%, -50%);
-            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-            z-index: 9999;
-        }
-        .cursor-outline {
-            width: 30px; /* Slightly smaller */
-            height: 30px; /* Slightly smaller */
-            border: 2px solid #d946ef; /* Changed default border color */
-            transition: all 0.05s ease-out; /* Faster transition */
-            pointer-events: none; /* Ensure it doesn't interfere with clicks */
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            border-radius: 50%;
-            opacity: 0;
-            transform: translate(-50%, -50%);
-            z-index: 9999;
-        }
-        body:has(a:hover, button:hover) .cursor-outline {
-            transform: translate(-50%, -50%) scale(1.3); /* Slightly smaller scale on hover */
-            border-color: #ec4899; /* Changed hover border color */
-        }
-        .star-particle {
-            position: fixed;
-            pointer-events: none;
-            border-radius: 50%;
-            background-image: linear-gradient(to right, #f9a8d4, #f472b6, #ec4899);
-            z-index: 9998;
-            transition: all 0.2s cubic-bezier(0.05, 0.8, 0.2, 0.95); /* Faster decay */
+        .list-item::before {
+            content: '•';
+            color: #3b82f6; /* Azul brillante para los puntos de lista */
+            position: absolute;
+            left: 0;
+            font-size: 1.25rem;
+            line-height: 1;
         }
     </style>
 </head>
-<body class="bg-pink-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+<body class="antialiased">
+    <div class="container mx-auto p-6 md:p-10 lg:p-16 max-w-4xl">
 
-    <!-- Cursor Personalizado -->
-    <div class="cursor-dot"></div> <!-- This will be invisible -->
-    <div class="cursor-outline"></div>
+        <!-- Encabezado Principal -->
+        <header class="text-center mb-12 py-8 bg-gradient-to-r from-blue-600 to-indigo-700 text-white rounded-xl shadow-lg">
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4 leading-tight">
+                Desarrollando la Mente Matemática: <br>La Perseverancia Resolutora
+            </h1>
+            <p class="text-xl md:text-2xl font-light max-w-2xl mx-auto mb-6">
+                Presentado por:
+            </p>
+            <p class="text-lg md:text-xl font-semibold max-w-2xl mx-auto">
+                Vinico Ortega, Nanci Arias Cevallos, Fatima Castillo, Volma Pinta, Cristian Lombeida, Marianela Manosalvas
+            </p>
+            <p class="text-xl md:text-2xl font-light max-w-2xl mx-auto mt-6">
+                ¿Alguna vez te has enfrentado a un problema matemático que parecía imposible? La <strong class="font-semibold">perseverancia resolutora</strong> es la clave para superarlo. Es la chispa que te impulsa a buscar soluciones, incluso cuando el camino no está claro, usando todo tu ingenio para alcanzar el éxito.
+            </p>
+        </header>
 
-    <!-- Header -->
-    <header class="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm shadow-md sticky top-0 z-20">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <h1 class="text-xl md:text-2xl font-bold gradient-text">Tu Aventura Digital</h1>
-            <button id="theme-toggle" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
-                <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
-                <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm-.707 10.607a1 1 0 010-1.414l.707-.707a1 1 0 111.414 1.414l-.707-.707a1 1 0 01-1.414 0zM11 17a1 1 0 100 2v-1a1 1 0 100-2h-1zM3 11a1 1 0 100 2h1a1 1 0 100-2H3z"></path></svg>
-            </button>
-        </div>
-    </header>
+        <!-- Sección: ¿Qué es la Perseverancia Resolutora? -->
+        <section class="card">
+            <h2 class="section-title text-3xl md:text-4xl mb-6">¿Qué es la Perseverancia Resolutora?</h2>
+            <p class="text-lg mb-4">
+                Imagínate un detective buscando pistas. Así actúa tu mente cuando desarrolla la perseverancia resolutora:
+            </p>
+            <ul class="list-none pl-0 text-lg">
+                <li class="list-item"><strong>Motivación:</strong> Quieres llegar al resultado.</li>
+                <li class="list-item"><strong>Recursos:</strong> Usas todo lo que sabes (lógica, creatividad, experiencia).</li>
+                <li class="list-item"><strong>Impulso:</strong> La satisfacción de resolver el problema es tu motor.</li>
+            </ul>
+        </section>
 
-    <!-- Main Content -->
-    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div class="text-center mb-16">
-             <h2 class="text-4xl md:text-6xl font-extrabold gradient-text">Desbloquea tu Potencial Digital</h2>
-            <p class="mt-4 text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Un curso intensivo de 20 días para dominar las herramientas que te harán brillar en tus estudios y más allá.</p>
-            <p id="user-id-display" class="mt-2 text-sm text-gray-500 dark:text-gray-400">ID de Usuario: Cargando...</p>
-        </div>
-        <div class="bg-white dark:bg-gray-800/50 rounded-2xl shadow-2xl shadow-fuchsia-200/50 dark:shadow-fuchsia-900/20 p-6 md:p-10">
-            <div id="course-container" class="space-y-4">
-                <!-- Los días del curso se inyectarán aquí -->
+        <!-- Sección: Cómo Fomentarla: ¡Estrategias Clave! -->
+        <section class="card">
+            <h2 class="section-title text-3xl md:text-4xl mb-6">Cómo Fomentarla: ¡Estrategias Clave!</h2>
+
+            <div class="mb-8">
+                <h3 class="subsection-title text-2xl md:text-3xl mb-4">1. Mentalidad de Crecimiento: ¡Tú Puedes Mejorar!</h3>
+                <ul class="list-none pl-0 text-lg">
+                    <li class="list-item"><strong>Cree en ti:</strong> Tus habilidades crecen con esfuerzo.</li>
+                    <li class="list-item"><strong>Acepta el desafío:</strong> Los errores son oportunidades para aprender.</li>
+                    <li class="list-item"><strong>Disfruta el proceso:</strong> Las dificultades son parte del juego.</li>
+                    <li class="list-item"><strong>Valora el esfuerzo:</strong> No solo el resultado final importa.</li>
+                    <li class="list-item"><strong>Descubre la belleza:</strong> Las matemáticas son útiles y fascinantes.</li>
+                </ul>
             </div>
-        </div>
-    </main>
 
-    <footer class="text-center py-8 mt-8 text-gray-500 dark:text-gray-400">
-        <p>&copy; 2024 Aventura Digital. Creado para futuras genios.</p>
-    </footer>
+            <div class="mb-8">
+                <h3 class="subsection-title text-2xl md:text-3xl mb-4">2. Instrucción Efectiva: Apoyo Personalizado</h3>
+                <ul class="list-none pl-0 text-lg">
+                    <li class="list-item"><strong>Ayuda a tu medida:</strong> Recibe apoyo cuando lo necesites.</li>
+                    <li class="list-item"><strong>Recursos variados:</strong> Libros, tutores, juegos, ¡todo suma!</li>
+                    <li class="list-item"><strong>Tiempo para dominar:</strong> No te apresures, tómate tu tiempo.</li>
+                    <li class="list-item"><strong>Evaluación formativa:</strong> Las pruebas te ayudan a mejorar, no a calificar.</li>
+                    <li class="list-item"><strong>Colabora, no compitas:</strong> Aprender juntos es más fácil.</li>
+                </ul>
+            </div>
 
-    <script type="module">
-        // Firebase SDK imports
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc, getDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+            <div class="mb-8">
+                <h3 class="subsection-title text-2xl md:text-3xl mb-4">3. Práctica Constante: ¡La Maestría se Construye!</h3>
+                <ul class="list-none pl-0 text-lg">
+                    <li class="list-item"><strong>Practica inteligentemente:</strong> Resuelve problemas y repite procedimientos.</li>
+                    <li class="list-item"><strong>Dedícate:</strong> Las habilidades crecen con el compromiso.</li>
+                    <li class="list-item"><strong>Memoriza lo básico:</strong> Libera tu mente para lo complejo.</li>
+                    <li class="list-item"><strong>Explora y analiza:</strong> Busca patrones, crea tus propias soluciones.</li>
+                    <li class="list-item"><strong>Evalúa tu progreso:</strong> Revisa tu camino, ¿vas por buen rumbo?</li>
+                </ul>
+            </div>
 
-        // Global variables for Firebase (provided by the Canvas environment)
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
-        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+            <div>
+                <h3 class="subsection-title text-2xl md:text-3xl mb-4">4. Ambiente Colaborativo: Juntos Aprendemos Más</h3>
+                <ul class="list-none pl-0 text-lg">
+                    <li class="list-item"><strong>Reflexiona y comparte:</strong> Valora diferentes puntos de vista.</li>
+                    <li class="list-item"><strong>Socializa problemas:</strong> Intercambia ideas, acepta la crítica.</li>
+                    <li class="list-item"><strong>Trabaja en grupo:</strong> Discutan y generen nuevas estrategias.</li>
+                    <li class="list-item"><strong>Crea tus propios problemas:</strong> Interactúa con las matemáticas de formas nuevas.</li>
+                </ul>
+            </div>
+        </section>
 
-        let app;
-        let db;
-        let auth;
-        let userId = null;
+        <!-- Sección: Evaluando la Perseverancia: Más allá de un Número -->
+        <section class="card">
+            <h2 class="section-title text-3xl md:text-4xl mb-6">Evaluando la Perseverancia: Más Allá de un Número</h2>
+            <p class="text-lg mb-4">
+                Evaluar la perseverancia no es poner una nota, es entender cómo crecen tus habilidades y actitudes. Es una guía para seguir aprendiendo.
+            </p>
 
-        // Initialize Firebase and authenticate
-        try {
-            app = initializeApp(firebaseConfig);
-            db = getFirestore(app);
-            auth = getAuth(app);
+            <div class="mb-8">
+                <h3 class="subsection-title text-2xl md:text-3xl mb-4">Principios Clave:</h3>
+                <ul class="list-none pl-0 text-lg">
+                    <li class="list-item"><strong>No es para calificar:</strong> Es para entenderte y adaptarnos.</li>
+                    <li class="list-item"><strong>Se ve en la acción:</strong> Tus valores se reflejan en cómo actúas.</li>
+                    <li class="list-item"><strong>Compites contigo mismo:</strong> Busca siempre tu mejor versión.</li>
+                </ul>
+            </div>
 
-            onAuthStateChanged(auth, async (user) => {
-                if (user) {
-                    userId = user.uid;
-                    console.log("Authenticated user ID:", userId);
-                } else {
-                    // Sign in anonymously if no user is authenticated
-                    try {
-                        if (initialAuthToken) {
-                            await signInWithCustomToken(auth, initialAuthToken);
-                        } else {
-                            await signInAnonymously(auth);
-                        }
-                        userId = auth.currentUser.uid;
-                        console.log("Signed in anonymously with user ID:", userId);
-                    } catch (error) {
-                        console.error("Firebase authentication error:", error);
-                    }
-                }
-                // Once authenticated, load course data with scores
-                loadCourseData();
-                // Display User ID once available
-                const userIdDisplay = document.getElementById('user-id-display');
-                if (userId) {
-                    userIdDisplay.textContent = `ID de Usuario: ${userId}`;
-                } else {
-                    userIdDisplay.textContent = `ID de Usuario: No autenticado`;
-                }
-            });
-        } catch (error) {
-            console.error("Firebase initialization error:", error);
-            // Fallback to loading course data without Firebase if initialization fails
-            loadCourseData();
-        }
+            <div class="mb-8">
+                <h3 class="subsection-title text-2xl md:text-3xl mb-4">¿Qué Evaluamos?</h3>
+                <ul class="list-none pl-0 text-lg">
+                    <li class="list-item"><strong>Autodisciplina:</strong> ¿Eres constante en tu trabajo?</li>
+                    <li class="list-item"><strong>Superación:</strong> ¿Buscas soluciones ante los obstáculos?</li>
+                    <li class="list-item"><strong>Esfuerzo continuo:</strong> ¿Te dedicas y te comprometes?</li>
+                    <li class="list-item"><strong>Resistencia al fracaso:</strong> ¿Aprendes de tus errores y sigues adelante?</li>
+                    <li class="list-item"><strong>Metas alcanzadas:</strong> ¿Cumples tus objetivos?</li>
+                </ul>
+            </div>
 
-        const courseData = [
-            // Semana 1
-            {
-                icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-fuchsia-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>`,
-                title: "Día 1: Anatomía de tu PC",
-                imageUrl: "https://images.unsplash.com/photo-1587831990711-23ca6441447b?q=80&w=1974&auto=format&fit=crop",
-                content: "<b>1. Hardware vs. Software:</b> La primera gran división en el mundo de la computación. El <b>Hardware</b> son todos los componentes físicos que puedes ver y tocar: la pantalla, el teclado, el mouse, y las partes internas como el procesador. Piensa en ello como el cuerpo de la computadora. El <b>Software</b>, por otro lado, es la parte intangible, el conjunto de programas, aplicaciones e instrucciones que le dicen al hardware qué hacer. Es el alma o la mente de la máquina. Sin software, el hardware es solo un objeto inerte.<br><br><b>2. Componentes Básicos Esenciales:</b> Para que una máquina sea considerada una computadora, debe tener cuatro dispositivos fundamentales que trabajan en conjunto: la <b>CPU (Unidad Central de Proceso)</b>, que es el 'cerebro' que realiza todos los cálculos y procesa las órdenes; el <b>Monitor</b>, que es la pantalla donde ves los resultados de esos procesos; el <b>Teclado</b>, para introducir letras, números y comandos; y el <b>Mouse</b>, para interactuar de forma gráfica con los elementos en pantalla.<br><br><b>3. Componentes Internos Clave:</b> Dentro del gabinete (la torre o el cuerpo de tu laptop) se encuentran piezas vitales que determinan su potencia: la <b>Memoria RAM</b>, una memoria de trabajo súper rápida donde se cargan los programas que usas en el momento (a más RAM, más cosas puedes hacer a la vez); el <b>Disco Duro o SSD</b>, que es el almacén permanente de tus archivos, fotos, juegos y del sistema operativo; y la <b>Placa Base</b> (Motherboard), que es la gran placa de circuito que interconecta todos los demás componentes para que puedan comunicarse entre sí.",
-                quiz: {
-                    questions: [
-                        { question: "La memoria RAM y el procesador (CPU) son ejemplos de...", options: ["Software", "Periféricos", "Hardware", "Sistema Operativo"], answer: "Hardware" },
-                        { question: "¿Qué componente es considerado el 'cerebro' de la computadora?", options: ["Monitor", "Disco Duro", "CPU", "RAM"], answer: "CPU" },
-                        { question: "Si abres muchos programas a la vez y la PC se pone lenta, ¿qué componente interno es el más implicado?", options: ["Placa Base", "Memoria RAM", "Teclado", "Monitor"], answer: "Memoria RAM" },
-                        { question: "La parte intangible de la computadora, como Windows o tus apps, se llama:", options: ["Hardware", "Firmware", "Software", "Periférico"], answer: "Software" },
-                        { question: "¿Cuál de estos es un componente básico y no un componente interno?", options: ["Placa Base", "Mouse", "Disco SSD", "Memoria RAM"], answer: "Mouse" },
-                        { question: "El lugar donde se guardan tus archivos permanentemente es el...", options: ["Procesador", "Disco Duro o SSD", "Memoria RAM", "Monitor"], answer: "Disco Duro o SSD" },
-                        { question: "La gran placa que conecta todos los componentes internos se llama:", options: ["Placa de Video", "Placa de Sonido", "Placa Base", "Placa de Red"], answer: "Placa Base" },
-                        { question: "Ver esta página web en tu pantalla es posible gracias al...", options: ["Teclado", "Mouse", "Monitor", "Software"], answer: "Monitor" },
-                        { question: "Para escribir tu nombre en un documento, usas principalmente el...", options: ["Mouse", "Monitor", "Teclado", "Software"], answer: "Teclado" },
-                        { question: "La principal diferencia entre Hardware y Software es que...", options: ["El Hardware es más caro", "El Software es más rápido", "El Hardware es físico y el Software es virtual", "El Software no necesita Hardware"], answer: "El Hardware es físico y el Software es virtual" }
-                    ]
-                }
-            },
-            {
-                icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z" /></svg>`,
-                title: "Día 2: Periféricos: Los Sentidos de la PC",
-                imageUrl: "https://images.unsplash.com/photo-1618220252344-88b9a1893d3a?q=80&w=1932&auto=format&fit=crop",
-                content: "<b>1. ¿Qué son los periféricos?</b> Son dispositivos de hardware que se conectan a la computadora, generalmente por puertos USB o HDMI, para expandir sus capacidades y permitirle interactuar con el mundo exterior. Piensa en ellos como los sentidos y las herramientas de la PC, permitiéndole ver, oír, hablar y tocar.<br><br><b>2. Periféricos de Entrada:</b> Su única función es introducir información a la computadora desde el exterior. Son los que te permiten 'hablarle' a la PC. <i>Ejemplos: Teclado (introduce texto y comandos), mouse (introduce movimiento y clics), micrófono (introduce sonido), escáner (digitaliza imágenes y documentos), cámara web (introduce video).</i><br><br><b>3. Periféricos de Salida y Mixtos:</b> Los de <b>Salida</b> toman la información ya procesada por la PC y la muestran al usuario de una forma comprensible. <i>Ejemplos: Monitor (muestra imágenes), impresora (crea copias físicas en papel), altavoces/auriculares (reproducen sonido).</i> Los <b>Mixtos</b> son los más versátiles, ya que pueden tanto introducir como sacar información. <i>Ejemplos: Una impresora multifunción (imprime y escanea), una pantalla táctil (muestra imágenes y recibe tus toques como entrada), un pendrive USB (guarda y lee archivos).</i>",
-                quiz: {
-                    questions: [
-                        { question: "Una impresora que también puede escanear documentos es un periférico...", options: ["Solo de Entrada", "Solo de Salida", "Mixto", "Ninguno de los anteriores"], answer: "Mixto" },
-                        { question: "Un micrófono se utiliza para...", options: ["Mostrar imágenes", "Introducir sonido", "Imprimir texto", "Sacar sonido"], answer: "Introducir sonido" },
-                        { question: "El monitor de tu computadora es un periférico de...", options: ["Entrada", "Salida", "Mixto", "Almacenamiento"], answer: "Salida" },
-                        { question: "Un pendrive USB es un periférico mixto porque...", options: ["Es de plástico y metal", "Puede guardar y leer datos", "Se conecta por USB", "Es pequeño"], answer: "Puede guardar y leer datos" },
-                        { question: "¿Cuál de los siguientes es exclusivamente un periférico de entrada?", options: ["Auriculares", "Pantalla táctil", "Impresora multifunción", "Teclado"], answer: "Teclado" },
-                        { question: "Los altavoces son un periférico de...", options: ["Entrada", "Salida", "Mixto", "Red"], answer: "Salida" },
-                        { question: "Para una videollamada, usas una cámara web (entrada) y altavoces (salida). ¿Qué otro periférico de entrada es clave?", options: ["Impresora", "Micrófono", "Monitor", "Escáner"], answer: "Micrófono" },
-                        { question: "La función principal de los periféricos es...", options: ["Hacer la PC más rápida", "Almacenar el sistema operativo", "Expandir la capacidad de la PC para interactuar", "Enfriar el procesador"], answer: "Expandir la capacidad de la PC para interactuar" },
-                        { question: "Un proyector que muestra la imagen de tu PC en una pared es un periférico de...", options: ["Entrada", "Salida", "Mixto", "Almacenamiento"], answer: "Salida" },
-                        { question: "El mouse es un periférico de entrada porque...", options: ["Muestra un puntero", "Envía señales de movimiento y clics a la PC", "Se conecta con un cable", "Tiene una rueda"], answer: "Envía señales de movimiento y clics a la PC" }
-                    ]
-                }
-            },
-            {
-                icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9V3m0 18a9 9 0 009-9m-9 9a9 9 0 00-9-9" /></svg>`,
-                title: "Día 3: El SO, Escritorio y Unidades de Medida",
-                imageUrl: "https://images.unsplash.com/photo-1614741118884-62ac1e269155?q=80&w=1974&auto=format&fit=crop",
-                content: "<b>1. Sistema Operativo (SO):</b> Es el software 'jefe', el programa más importante que gestiona todos los recursos del hardware y software. Actúa como intermediario entre tú y la máquina. Los más comunes son <b>Windows, macOS (Apple) y Linux</b>.<br><br><b>2. Escritorio de Windows:</b> Es tu mesa de trabajo digital, la primera pantalla que ves. Sus partes clave son los <b>Iconos</b> (accesos directos a programas/archivos) y la <b>Barra de Tareas</b>, esa franja inferior que contiene el <b>Menú Inicio</b>, los programas abiertos y el área de notificaciones (reloj, Wi-Fi, volumen).<br><br><b>3. Unidades de Medida:</b> Toda la información digital se compone de <b>Bits</b> (0 o 1). Un conjunto de 8 bits forma un <b>Byte</b> (una letra). Luego la escala crece: <b>Kilobyte (KB)</b>, <b>Megabyte (MB)</b>, <b>Gigabyte (GB)</b> y <b>Terabyte (TB)</b>. Cada unidad es 1024 veces más grande que la anterior.",
-                quiz: {
-                    questions: [
-                        { question: "El software más importante que gestiona todo en tu PC es...", options: ["Google Chrome", "Word", "El Sistema Operativo", "El Antivirus"], answer: "El Sistema Operativo" },
-                        { question: "La barra inferior de Windows con el Menú Inicio se llama...", options: ["Barra de Herramientas", "Barra de Tareas", "Barra de Estado", "Dock"], answer: "Barra de Tareas" },
-                        { question: "¿Qué unidad de medida es más grande?", options: ["1000 KB", "1 MB", "1 GB", "10.000 Bytes"], answer: "1 GB" },
-                        { question: "Los íconos en el escritorio son...", options: ["Archivos de sistema", "Carpetas", "Accesos directos a programas o archivos", "El fondo de pantalla"], answer: "Accesos directos a programas o archivos" },
-                        { question: "Un Byte está compuesto por...", options: ["1 Bit", "4 Bits", "8 Bits", "16 Bits"], answer: "8 Bits" },
-                        { question: "¿Cuál de estos NO es un Sistema Operativo para computadoras?", options: ["Windows", "macOS", "Android", "Linux"], answer: "Android" },
-                        { question: "La unidad de medida más pequeña de la información digital es el...", options: ["Byte", "Bit", "Kilobyte", "Megabyte"], answer: "Bit" },
-                        { question: "El área principal donde ves tus ventanas y programas se llama...", options: ["Menú Inicio", "Barra de Tareas", "Escritorio", "Panel de Control"], answer: "Escritorio" },
-                        { question: "Si una canción pesa 3 MB, ¿cuántos KB son aproximadamente?", options: ["300 KB", "3072 KB", "30 KB", "1024 KB"], answer: "3072 KB" },
-                        { question: "La función principal del Sistema Operativo es...", options: ["Navegar por internet", "Escribir documentos", "Gestionar los recursos del hardware y software", "Proteger de virus"], answer: "Gestionar los recursos del hardware y software" }
-                    ]
-                }
-            },
-            // Semana 2
-            {
-                icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V7m-4 4l-4 4m0 0l-4-4m4 4V3" /></svg>`,
-                title: "Día 4: Gestión de Archivos y Carpetas",
-                imageUrl: "https://images.unsplash.com/photo-1599017255160-c35f2991e4b9?q=80&w=1974&auto=format&fit=crop",
-                content: "<b>1. El Explorador de Archivos:</b> Es como tu biblioteca personal digital. Te permite ver, organizar y mover todos los archivos y carpetas en tu computadora. En Windows se llama 'Explorador de Archivos', en macOS es 'Finder'. Puedes acceder a él desde la barra de tareas o el menú inicio.<br><br><b>2. Carpetas y Subcarpetas:</b> Las <b>Carpetas</b> son contenedores donde guardas tus archivos para mantenerlos organizados. Piensa en ellas como archivadores. Dentro de una carpeta, puedes crear <b>Subcarpetas</b> para una organización aún más detallada. Por ejemplo: 'Documentos' > 'Universidad' > 'Matemáticas' > 'Apuntes'.<br><br><b>3. Operaciones Básicas con Archivos:</b> Aprenderás a <b>Crear</b> nuevas carpetas, <b>Guardar</b> documentos, <b>Abrir</b> archivos, <b>Copiar</b> (duplicar un archivo en otro lugar), <b>Cortar</b> (mover un archivo de un lugar a otro), <b>Pegar</b> (colocar el archivo copiado/cortado), <b>Renombrar</b> (cambiar el nombre de un archivo o carpeta) y <b>Eliminar</b> (enviar a la papelera de reciclaje).<br><br><b>4. La Papelera de Reciclaje:</b> Es un área temporal donde van los archivos eliminados. Si eliminas algo por error, puedes restaurarlo desde aquí. Vaciar la papelera de reciclaje elimina los archivos permanentemente.",
-                quiz: {
-                    questions: [
-                        { question: "¿Qué herramienta usas en Windows para ver y organizar tus archivos?", options: ["Google Chrome", "Panel de Control", "Explorador de Archivos", "Calculadora"], answer: "Explorador de Archivos" },
-                        { question: "Si quieres mover un archivo de una carpeta a otra, ¿qué operación usas primero?", options: ["Copiar", "Guardar", "Cortar", "Renombrar"], answer: "Cortar" },
-                        { question: "¿Cuál es la función de una subcarpeta?", options: ["Abrir programas", "Almacenar la papelera de reciclaje", "Organizar archivos dentro de otra carpeta", "Conectar a internet"], answer: "Organizar archivos dentro de otra carpeta" },
-                        { question: "Si eliminas un archivo y quieres recuperarlo, ¿dónde lo buscas?", options: ["En el disco duro", "In the RAM memory", "En la Papelera de Reciclaje", "En el Menú Inicio"], answer: "En la Papelera de Reciclaje" },
-                        { question: "Para hacer una copia exacta de un archivo en otro lugar, usas...", options: ["Cortar y Pegar", "Renombrar", "Copiar y Pegar", "Eliminar"], answer: "Copiar y Pegar" },
-                        { question: "What does 'rename' a file mean?", options: ["Borrarlo", "Duplicarlo", "Cambiarle el nombre", "Moverlo de lugar"], answer: "Cambiarle el nombre" },
-                        { question: "La Papelera de Reciclaje guarda los archivos...", options: ["Permanentemente", "Temporalmente hasta que la vacíes", "En la nube", "En la memoria RAM"], answer: "Temporalmente hasta que la vacíes" },
-                        { question: "¿Cuál de estas NO es una operación básica con archivos?", options: ["Crear", "Imprimir", "Eliminar", "Copiar"], answer: "Imprimir" },
-                        { question: "Si tienes una carpeta llamada 'Fotos' y dentro otra llamada 'Vacaciones 2024', 'Vacaciones 2024' es una...", options: ["Archivo", "Acceso Directo", "Subcarpeta", "Unidad de Disco"], answer: "Subcarpeta" },
-                        { question: "Para abrir un documento guardado, ¿qué acción realizas?", options: ["Cortar", "Eliminar", "Guardar", "Abrir"], answer: "Abrir" }
-                    ]
-                }
-            },
-            {
-                icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>`,
-                title: "Día 5: Navegación Web Segura y Eficiente",
-                imageUrl: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=2070&auto=format&fit=crop",
-                content: "<b>1. Navegadores Web:</b> Son los programas que te permiten acceder a Internet y visitar páginas web. Los más populares son <b>Google Chrome, Mozilla Firefox, Microsoft Edge y Safari</b>. Cada uno tiene sus propias características, pero todos cumplen la misma función principal.<br><br><b>2. URLs y Motores de Búsqueda:</b> Una <b>URL (Uniform Resource Locator)</b> es la dirección única de una página web, como 'www.google.com'. Los <b>Motores de Búsqueda</b> (como Google, Bing o DuckDuckGo) son herramientas que te ayudan a encontrar información en la web. Tú escribes lo que buscas, y ellos te dan una lista de páginas relevantes.<br><br><b>3. Navegación Segura:</b> Es crucial protegerte en línea. Busca siempre sitios con <b>'https://'</b> (el 's' significa seguro) y un ícono de candado en la barra de direcciones. Desconfía de enlaces sospechosos o correos electrónicos extraños. Evita dar información personal en sitios no seguros. Un antivirus y un firewall también son importantes.<br><br><b>4. Consejos para una Navegación Eficiente:</b> Usa las <b>Pestañas</b> para tener varias páginas abiertas a la vez. Los <b>Marcadores/Favoritos</b> te permiten guardar tus sitios web preferidos para acceder a ellos rápidamente. Aprende a usar las búsquedas avanzadas en los motores de búsqueda para encontrar información más específica. ¡Y cierra las pestañas que no uses para ahorrar recursos!",
-                quiz: {
-                    questions: [
-                        { question: "¿Cuál de estos NO es un navegador web?", options: ["Google Chrome", "Microsoft Word", "Mozilla Firefox", "Safari"], answer: "Microsoft Word" },
-                        { question: "El 's' en 'https://' significa que la conexión es...", options: ["Lenta", "Segura", "Social", "Simple"], answer: "Segura" },
-                        { question: "¿Qué herramienta usas para encontrar información en internet?", options: ["Una URL", "Un Marcador", "Un Motor de Búsqueda", "Una Pestaña"], answer: "Un Motor de Búsqueda" },
-                        { question: "La dirección única de una página web se llama...", options: ["IP", "DNS", "URL", "HTTP"], answer: "URL" },
-                        { question: "Para guardar una página web que te gusta y visitarla fácilmente después, usas...", options: ["La Papelera", "Los Marcadores/Favoritos", "El Historial", "El Escritorio"], answer: "Los Marcadores/Favoritos" },
-                        { question: "¿Cuál de estas NO es una práctica de navegación segura?", options: ["Buscar el candado en la barra de direcciones", "Hacer clic en todos los enlaces de correos desconocidos", "Usar un antivirus", "No dar información personal en sitios no seguros"], answer: "Hacer clic en todos los enlaces de correos desconocidos" },
-                        { question: "Si quieres tener varias páginas web abiertas al mismo tiempo, usas...", options: ["Ventanas", "Pestañas", "Archivos", "Carpetas"], answer: "Pestañas" },
-                        { question: "¿Qué es un firewall?", options: ["Un tipo de navegador", "Un programa para hacer fuego", "Una barrera de seguridad que controla el tráfico de red", "Un motor de búsqueda antiguo"], answer: "Una barrera de seguridad que controla el tráfico de red" },
-                        { question: "Para una búsqueda más precisa en Google, puedes usar...", options: ["Solo una palabra", "Búsquedas avanzadas", "Imágenes", "Videos"], answer: "Búsquedas avanzadas" },
-                        { question: "Si un sitio web no tiene 'https://' y te pide datos bancarios, ¿qué deberías hacer?", options: ["Dárselos", "Ignorarlo y seguir navegando", "Cerrar la página inmediatamente", "Compartir el enlace con amigos"], answer: "Cerrar la página inmediatamente" }
-                    ]
-                }
-            },
-            {
-                icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>`,
-                title: "Día 6: Correo Electrónico y Comunicación Digital",
-                imageUrl: "https://images.unsplash.com/photo-1582213782179-e0d53f9ef5f9?q=80&w=2070&auto=format&fit=crop",
-                content: "<b>1. ¿Qué es el Correo Electrónico?</b> Es un servicio de red que permite a los usuarios enviar y recibir mensajes (también llamados 'e-mails' o 'correos') rápidamente a través de sistemas de comunicación electrónica. Es una herramienta fundamental para la comunicación personal, académica y profesional.<br><br><b>2. Estructura de un Correo:</b> Un correo tiene varias partes: <b>Para (To)</b>: la dirección del destinatario principal; <b>CC (Con Copia)</b>: para enviar una copia a alguien más que no es el destinatario principal, pero debe estar informado; <b>CCO (Con Copia Oculta)</b>: similar a CC, pero los destinatarios en CCO no son visibles para los demás; <b>Asunto (Subject)</b>: un breve resumen del contenido del correo; y el <b>Cuerpo del Mensaje</b>: donde escribes tu texto, y puedes adjuntar archivos (fotos, documentos, etc.).<br><br><b>3. Netiqueta y Seguridad:</b> La <b>Netiqueta</b> son las reglas de buena educación en el mundo digital. Sé claro y conciso, usa un lenguaje apropiado, evita escribir todo en mayúsculas (parece que gritas) y revisa la ortografía. En cuanto a <b>Seguridad</b>, nunca abras correos de remitentes desconocidos, no hagas clic en enlaces sospechosos y no descargues archivos adjuntos si no confías en la fuente. El 'phishing' es un intento de robar tu información haciéndose pasar por alguien de confianza.",
-                quiz: {
-                    questions: [
-                        { question: "¿Qué significa 'CC' en un correo electrónico?", options: ["Correo Completo", "Con Copia", "Correo Confirmado", "Cuenta Corriente"], answer: "Con Copia" },
-                        { question: "¿Cuál de estas partes de un correo NO es visible para los demás destinatarios?", options: ["Para", "Asunto", "Cuerpo del Mensaje", "CCO"], answer: "CCO" },
-                        { question: "Si escribes un correo todo en MAYÚSCULAS, en netiqueta se interpreta como...", options: ["Importante", "Gritando", "Formal", "Amigable"], answer: "Gritando" },
-                        { question: "Para enviar una foto junto con tu mensaje, ¿qué acción realizas?", options: ["Copiar", "Pegar", "Adjuntar archivo", "Renombrar"], answer: "Adjuntar archivo" },
-                        { question: "El 'Asunto' de un correo sirve para...", options: ["Poner tu nombre", "Resumir el contenido del mensaje", "Escribir el mensaje completo", "Adjuntar archivos"], answer: "Resumir el contenido del mensaje" },
-                        { question: "¿Qué es el 'phishing'?", options: ["Un tipo de pez", "Un intento de robar tu información haciéndose pasar por alguien de confianza", "Un programa para enviar correos masivos", "Un juego en línea"], answer: "Un intento de robar tu información haciéndose pasar por alguien de confianza" },
-                        { question: "Si recibes un correo de un remitente desconocido con un enlace muy atractivo, ¿qué deberías hacer?", options: ["Hacer clic de inmediato", "Reenviarlo a todos tus contactos", "Borrarlo sin abrirlo", "Responder pidiendo más información"], answer: "Borrarlo sin abrirlo" },
-                        { question: "¿Cuál de estas es una buena práctica de netiqueta?", options: ["Usar muchas abreviaciones", "Escribir con faltas de ortografía", "Ser claro y conciso", "Enviar cadenas de mensajes"], answer: "Ser claro y conciso" },
-                        { question: "La dirección de correo electrónico del destinatario principal va en el campo...", options: ["Asunto", "CC", "CCO", "Para"], answer: "Para" },
-                        { question: "El correo electrónico es una herramienta de comunicación...", options: ["Solo personal", "Solo académica", "Solo profesional", "Personal, académica y profesional"], answer: "Personal, académica y profesional" }
-                    ]
-                }
-            },
-            {
-                icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>`,
-                title: "Día 7: Procesadores de Texto (Word/Docs)",
-                imageUrl: "https://images.unsplash.com/photo-1456324504439-367cee3b8c32?q=80&w=2070&auto=format&fit=crop",
-                content: "<b>1. ¿Qué son los Procesadores de Texto?</b> Son programas que te permiten crear, editar, formatear y guardar documentos de texto. Son esenciales para trabajos escolares, informes, cartas y cualquier escrito. Los más conocidos son <b>Microsoft Word</b> y <b>Google Docs</b> (online y colaborativo).<br><br><b>2. Formato Básico de Texto:</b> Puedes cambiar la apariencia de tu texto: <b>Fuente (Tipo de Letra)</b>: como Arial, Times New Roman; <b>Tamaño</b>: el tamaño del texto; <b>Negrita (Bold)</b>: para resaltar palabras; <b>Cursiva (Italic)</b>: para inclinar el texto; <b>Subrayado (Underline)</b>: para marcar texto; y <b>Color de Texto</b>. También puedes cambiar la <b>Alineación</b> (izquierda, centro, derecha, justificado).<br><br><b>3. Insertar Elementos:</b> No solo texto. Puedes añadir <b>Imágenes</b> para ilustrar tu documento, <b>Tablas</b> para organizar datos en filas y columnas, y <b>Listas</b> (numeradas o con viñetas) para enumerar puntos de forma clara. Esto hace tus documentos más profesionales y fáciles de leer.<br><br><b>4. Guardar y Exportar:</b> Es vital guardar tu trabajo con frecuencia. Puedes guardarlo en tu computadora o en la nube. También puedes <b>Exportar</b> tu documento a diferentes formatos, siendo el más común el <b>PDF (Portable Document Format)</b>, que asegura que tu documento se vea igual en cualquier dispositivo y no se pueda modificar fácilmente.",
-                quiz: {
-                    questions: [
-                        { question: "¿Cuál de estos NO es un procesador de texto?", options: ["Microsoft Word", "Google Docs", "Microsoft Excel", "LibreOffice Writer"], answer: "Microsoft Excel" },
-                        { question: "Para resaltar una palabra importante en tu texto, usas la opción de...", options: ["Cursiva", "Subrayado", "Negrita", "Color de Texto"], answer: "Negrita" },
-                        { question: "Si quieres organizar datos en filas y columnas dentro de tu documento, insertas una...", options: ["Imagen", "Lista", "Tabla", "Forma"], answer: "Tabla" },
-                        { question: "El formato PDF es útil porque...", options: ["Es fácil de editar", "Asegura que el documento se vea igual en cualquier dispositivo", "Solo se puede abrir en Word", "Ocupa mucho espacio"], answer: "Asegura que el documento se vea igual en cualquier dispositivo" },
-                        { question: "¿Qué opción te permite inclinar el texto?", options: ["Negrita", "Cursiva", "Subrayado", "Alineación"], answer: "Cursiva" },
-                        { question: "La alineación 'justificado' significa que el texto...", options: ["Se alinea a la izquierda", "Se alinea a la derecha", "Se centra", "Se alinea en ambos márgenes, izquierdo y derecho"], answer: "Se alinea en ambos márgenes, izquierdo y derecho" },
-                        { question: "Para añadir una foto a tu documento, usas la opción 'Insertar...' y luego...", options: ["Tabla", "Texto", "Imagen", "Forma"], answer: "Imagen" },
-                        { question: "¿Cuál es la principal ventaja de Google Docs sobre Microsoft Word (si no tienes Word instalado)?", options: ["Es más rápido", "Es gratuito y online", "Tiene más funciones", "No necesita internet"], answer: "Es gratuito y online" },
-                        { question: "Si quieres enumerar una serie de pasos en tu documento, usas...", options: ["Un párrafo largo", "Una imagen", "Una lista numerada", "Una tabla"], answer: "Una lista numerada" },
-                        { question: "Guardar tu trabajo 'frecuentemente' es importante para...", options: ["Que el documento sea más grande", "Evitar perder cambios por un error o corte de luz", "Que se vea mejor", "Compartirlo más rápido"], answer: "Evitar perder cambios por un error o corte de luz" }
-                    ]
-                }
-            },
-            {
-                icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v4m0 0H7m7 4h-3a2 2 0 01-2-2V5a2 2 0 012-2h3a2 2 0 012 2v14a2 2 0 01-2 2z" /></svg>`,
-                title: "Día 8: Hojas de Cálculo (Excel/Sheets)",
-                imageUrl: "https://images.unsplash.com/photo-1551288259-cd723797945d?q=80&w=2070&auto=format&fit=crop",
-                content: "<b>1. ¿Qué son las Hojas de Cálculo?</b> Son programas diseñados para organizar, analizar y manipular datos numéricos y de texto en tablas. Son ideales para presupuestos, seguimiento de notas, listas de inventario y cualquier cosa que involucre cálculos. Los más comunes son <b>Microsoft Excel</b> y <b>Google Sheets</b>.<br><br><b>2. Celdas, Filas y Columnas:</b> Una hoja de cálculo está compuesta por una cuadrícula. Las <b>Filas</b> son horizontales (numeradas: 1, 2, 3...), y las <b>Columnas</b> son verticales (identificadas por letras: A, B, C...). La intersección de una fila y una columna se llama <b>Celda</b>, y cada celda tiene una dirección única (ej: A1, B5).<br><br><b>3. Fórmulas Básicas:</b> La magia de las hojas de cálculo son las fórmulas. Siempre empiezan con un signo igual (=). Puedes hacer <b>Sumas (=SUMA(A1:A5))</b>, <b>Restas (=A1-B1)</b>, <b>Multiplicaciones (=A1*B1)</b>, <b>Divisiones (=A1/B1)</b> y calcular <b>Promedios (=PROMEDIO(A1:A5))</b>. Esto te permite automatizar cálculos y evitar errores.<br><br><b>4. Gráficos y Formato Condicional:</b> Para visualizar tus datos de forma más clara, puedes crear <b>Gráficos</b> (barras, circular, líneas). El <b>Formato Condicional</b> te permite aplicar estilos especiales a las celdas (ej: colorear de rojo las notas bajas) según su valor, lo que facilita la identificación de patrones.",
-                quiz: {
-                    questions: [
-                        { question: "¿Cuál de estos programas es una hoja de cálculo?", options: ["Microsoft Word", "Google Slides", "Microsoft Excel", "Paint"], answer: "Microsoft Excel" },
-                        { question: "En una hoja de cálculo, la intersección de una fila y una columna se llama...", options: ["Rango", "Tabla", "Celda", "Gráfico"], answer: "Celda" },
-                        { question: "Todas las fórmulas en una hoja de cálculo deben empezar con...", options: ["Un número", "Un signo de suma (+)", "Un signo de igual (=)", "Una letra"], answer: "Un signo de igual (=)" },
-                        { question: "¿Qué función usarías para calcular la nota promedio de un estudiante?", options: ["=SUMA()", "=RESTA()", "=PROMEDIO()", "=CONTAR()"], answer: "=PROMEDIO()" },
-                        { question: "Las columnas en una hoja de cálculo se identifican por...", options: ["Números", "Letras", "Símbolos", "Colores"], answer: "Letras" },
-                        { question: "Si quieres que las notas menores a 60 se pongan automáticamente en rojo, usas...", options: ["Un gráfico", "Formato Condicional", "Negrita", "Una fórmula de suma"], answer: "Formato Condicional" },
-                        { question: "Para sumar los valores de las celdas A1, A2 y A3, la fórmula correcta sería...", options: ["=A1+A2+A3", "=SUMA(A1-A3)", "=A1*A2*A3", "=PROMEDIO(A1:A3)"], answer: "=SUMA(A1:A3)" },
-                        { question: "¿Qué tipo de gráfico es ideal para mostrar porcentajes de un total?", options: ["Gráfico de Barras", "Gráfico de Líneas", "Gráfico Circular", "Gráfico de Dispersión"], answer: "Gráfico Circular" },
-                        { question: "Las filas en una hoja de cálculo se identifican por...", options: ["Números", "Letras", "Símbolos", "Colores"], answer: "Números" },
-                        { question: "La principal ventaja de usar una hoja de cálculo es...", options: ["Escribir textos largos", "Crear presentaciones bonitas", "Automatizar cálculos y organizar datos", "Navegar por internet"], answer: "Automatizar cálculos y organizar datos" }
-                    ]
-                }
-            },
-            {
-                icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>`,
-                title: "Día 9: Presentaciones Digitales (PowerPoint/Slides)",
-                imageUrl: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop",
-                content: "<b>1. ¿Qué son las Presentaciones Digitales?</b> Son programas que te permiten crear diapositivas con texto, imágenes, gráficos y videos para exponer ideas de forma visual y dinámica. Son perfectas para proyectos escolares, exposiciones y conferencias. Los más populares son <b>Microsoft PowerPoint</b> y <b>Google Slides</b>.<br><br><b>2. Diapositivas y Diseño:</b> Una presentación se compone de varias <b>Diapositivas</b>, cada una con su propio contenido. El <b>Diseño</b> se refiere a la plantilla o tema visual que le das a tu presentación (colores, fuentes, fondos). Es importante elegir un diseño claro y atractivo, pero sin sobrecargar.<br><br><b>3. Transiciones y Animaciones:</b> Las <b>Transiciones</b> son los efectos visuales que ocurren cuando pasas de una diapositiva a la siguiente (ej: disolver, empujar). Las <b>Animaciones</b> son efectos que aplicas a objetos individuales dentro de una diapositiva (texto, imágenes) para que aparezcan, desaparezcan o se muevan de forma específica. Úsalas con moderación para no distraer.<br><br><b>4. Consejos para una Buena Presentación:</b> Menos es más: no llenes las diapositivas con demasiado texto. Usa <b>Palabras Clave</b> e imágenes. Practica tu exposición. Asegúrate de que las fuentes sean legibles y los colores tengan buen contraste. Y siempre, siempre, revisa la ortografía y la gramática.",
-                quiz: {
-                    questions: [
-                        { question: "¿Cuál de estos NO es un programa para hacer presentaciones?", options: ["Microsoft PowerPoint", "Google Slides", "Keynote", "Microsoft Excel"], answer: "Microsoft Excel" },
-                        { question: "El efecto visual que ocurre al pasar de una diapositiva a otra se llama...", options: ["Animación", "Transición", "Diseño", "Formato"], answer: "Transición" },
-                        { question: "Si quieres que una imagen aparezca gradualmente en tu diapositiva, aplicas una...", options: ["Transición", "Animación", "Plantilla", "Tabla"], answer: "Animación" },
-                        { question: "Una presentación se compone de varias...", options: ["Páginas", "Hojas", "Diapositivas", "Documentos"], answer: "Diapositivas" },
-                        { question: "Para que tu presentación no distraiga, debes usar las animaciones...", options: ["En todas las diapositivas", "Con moderación", "Con muchos efectos diferentes", "Solo en el título"], answer: "Con moderación" },
-                        { question: "Si tu presentación tiene un fondo muy oscuro, ¿de qué color debería ser el texto para que se lea bien?", options: ["Oscuro", "Claro", "Rojo", "Verde"], answer: "Claro" },
-                        { question: "¿Qué es lo más importante al crear una presentación?", options: ["Llenarla de texto", "Usar muchas animaciones", "Comunicar tus ideas de forma clara y visual", "Terminarla rápido"], answer: "Comunicar tus ideas de forma clara y visual" },
-                        { question: "El 'Diseño' de una presentación se refiere a...", options: ["El contenido del texto", "La plantilla visual (colores, fondos)", "Las transiciones entre diapositivas", "Las animaciones de los objetos"], answer: "La plantilla visual (colores, fondos)" },
-                        { question: "Es una buena práctica en presentaciones usar...", options: ["Párrafos muy largos", "Solo imágenes", "Palabras clave e imágenes relevantes", "Solo texto sin imágenes"], answer: "Palabras clave e imágenes relevantes" },
-                        { question: "Antes de presentar, siempre debes...", options: ["Cambiar el fondo", "Practicar tu exposición", "Añadir más diapositivas", "Cambiar el tipo de letra"], answer: "Practicar tu exposición" }
-                    ]
-                }
-            },
-            {
-                icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-cyan-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>`,
-                title: "Día 10: Nube y Almacenamiento Online",
-                imageUrl: "https://images.unsplash.com/photo-1520004434532-cd6680327770?q=80&w=2070&auto=format&fit=crop",
-                content: "<b>1. ¿Qué es la Nube?</b> La 'Nube' (Cloud Computing) no es un lugar físico, sino una red de servidores remotos conectados a Internet. En lugar de guardar tus archivos solo en tu computadora, los guardas en estos servidores. Así, puedes acceder a ellos desde cualquier dispositivo con conexión a Internet. Es como tener un disco duro gigante y accesible desde cualquier lugar.<br><br><b>2. Servicios Populares de Almacenamiento en la Nube:</b> Hay muchas opciones gratuitas y de pago. Los más conocidos son <b>Google Drive, Dropbox, OneDrive (Microsoft) y iCloud (Apple)</b>. Todos ofrecen espacio para guardar tus documentos, fotos, videos y más.<br><br><b>3. Ventajas de la Nube:</b> La principal ventaja es la <b>Accesibilidad</b>: puedes trabajar en tus archivos desde tu PC, tablet o celular. También ofrece <b>Copia de Seguridad</b> automática, protegiéndote si tu dispositivo se daña o se pierde. Facilita la <b>Colaboración</b>, ya que varias personas pueden trabajar en el mismo documento al mismo tiempo. Y te ahorra espacio en tu dispositivo.<br><br><b>4. Sincronización y Compartir Archivos:</b> La <b>Sincronización</b> mantiene tus archivos actualizados en todos tus dispositivos. Si editas un documento en tu laptop, los cambios se reflejarán automáticamente en la versión de la nube y en tu celular. Puedes <b>Compartir</b> fácilmente archivos y carpetas con otras personas, controlando si pueden verlos, comentarlos o editarlos.",
-                quiz: {
-                    questions: [
-                        { question: "La 'Nube' es...", options: ["Un tipo de software", "Un lugar físico en el cielo", "Una red de servidores remotos para almacenar datos", "Un nuevo tipo de computadora"], answer: "Una red de servidores remotos para almacenar datos" },
-                        { question: "¿Cuál de estos NO es un servicio de almacenamiento en la nube?", options: ["Google Drive", "Dropbox", "Microsoft Word", "OneDrive"], answer: "Microsoft Word" },
-                        { question: "La principal ventaja de guardar tus archivos en la nube es...", options: ["Que ocupan menos espacio en tu disco duro", "Que solo tú puedes verlos", "La accesibilidad desde cualquier dispositivo con internet", "Que son más seguros que en tu PC"], answer: "La accesibilidad desde cualquier dispositivo con internet" },
-                        { question: "Si tu laptop se daña, pero tus archivos están en la nube, ¿qué pasa?", options: ["Los pierdes todos", "Solo pierdes los que no estaban sincronizados", "Puedes recuperarlos desde la nube en otro dispositivo", "Necesitas comprar una nueva laptop para recuperarlos"], answer: "Puedes recuperarlos desde la nube en otro dispositivo" },
-                        { question: "Cuando varias personas trabajan en el mismo documento en la nube al mismo tiempo, esto se llama...", options: ["Sincronización", "Compartir", "Colaboración", "Almacenamiento"], answer: "Colaboración" },
-                        { question: "¿Qué significa 'sincronización' en la nube?", options: ["Que los archivos se guardan solo una vez", "Que los archivos se mantienen actualizados en todos tus dispositivos", "Que puedes compartir archivos con otros", "Que puedes acceder a ellos sin internet"], answer: "Que los archivos se mantienen actualizados en todos tus dispositivos" },
-                        { question: "Si compartes un documento en Google Drive y solo quieres que lo vean, ¿qué permiso le das?", options: ["Editar", "Comentar", "Ver", "Propietario"], answer: "Ver" },
-                        { question: "¿Cuál de estas NO es una ventaja de usar la nube?", options: ["Copia de seguridad automática", "Ocupa espacio en tu dispositivo", "Facilita la colaboración", "Accesibilidad desde cualquier lugar"], answer: "Ocupa espacio en tu dispositivo" },
-                        { question: "iCloud es un servicio de nube de...", options: ["Google", "Microsoft", "Apple", "Dropbox"], answer: "Apple" },
-                        { question: "Para acceder a tus archivos en la nube, ¿qué necesitas principalmente?", options: ["Un cable USB", "Conexión a Internet", "Un disco duro externo", "Un software especial instalado"], answer: "Conexión a Internet" }
-                    ]
-                }
-            },
-            // Semana 3
-            {
-                icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-lime-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.001 12.001 0 002.944 12c.048.334.09.668.13 1H3a2 2 0 002 2h.5c.316 0 .62.083.888.233l-.447.894a1 1 0 00.894 1.342l.447-.894A2 2 0 008 17h8a2 2 0 001.763-1.031l.447.894a1 1 0 00.894-1.342l-.447-.894A2 2 0 0019.5 15H20a2 2 0 002-2h.006c.04-.332.082-.666.13-1a12.001 12.001 0 00-3.04-8.618z" /></svg>`,
-                title: "Día 11: Seguridad Informática Básica",
-                imageUrl: "https://images.unsplash.com/photo-1593642532781-03e7929c2fd5?q=80&w=2070&auto=format&fit=crop",
-                content: "<b>1. Amenazas Comunes:</b> El mundo digital tiene sus peligros. Los <b>Virus</b> son programas maliciosos que dañan tu sistema o archivos. El <b>Malware</b> es un término general para software dañino. El <b>Phishing</b> (visto en el día de correo) busca robar tus datos. El <b>Ransomware</b> 'secuestra' tus archivos y pide rescate. Y las <b>Estafas Online</b> son engaños para obtener dinero o información.<br><br><b>2. Antivirus y Firewall:</b> Un <b>Antivirus</b> es un programa que detecta, previene y elimina virus y malware. Es tu primera línea de defensa. Un <b>Firewall</b> (cortafuegos) es como un guardia de seguridad que controla el tráfico de red, bloqueando conexiones sospechosas y protegiéndote de ataques externos.<br><br><b>3. Contraseñas Fuertes:</b> Son tu llave de seguridad. Deben ser <b>largas</b> (mínimo 12 caracteres), <b>complejas</b> (combinar mayúsculas, minúsculas, números y símbolos) y <b>únicas</b> (no uses la misma para todo). Considera usar un gestor de contraseñas. ¡Nunca las compartas!<br><br><b>4. Actualizaciones y Copias de Seguridad:</b> Mantén tu <b>Sistema Operativo y programas actualizados</b>. Las actualizaciones corrigen fallos de seguridad. Realiza <b>Copias de Seguridad (Backups)</b> de tus archivos importantes regularmente, ya sea en un disco externo o en la nube. Esto te salvará si algo sale mal.",
-                quiz: {
-                    questions: [
-                        { question: "¿Qué tipo de programa daña tu sistema o archivos?", options: ["Antivirus", "Firewall", "Virus", "Navegador"], answer: "Virus" },
-                        { question: "Un programa que detecta y elimina software malicioso se llama...", options: ["Firewall", "Procesador de Texto", "Antivirus", "Navegador Web"], answer: "Antivirus" },
-                        { question: "¿Cuál de estas NO es una característica de una contraseña fuerte?", options: ["Larga", "Fácil de recordar", "Compleja", "Única"], answer: "Fácil de recordar" },
-                        { question: "Si tus archivos son 'secuestrados' y te piden dinero para recuperarlos, estás ante un ataque de...", options: ["Phishing", "Virus", "Ransomware", "Estafa Online"], answer: "Ransomware" },
-                        { question: "Un firewall tiene la función de...", options: ["Acelerar tu internet", "Controlar el tráfico de red y bloquear conexiones sospechosas", "Crear copias de seguridad", "Editar documentos"], answer: "Controlar el tráfico de red y bloquear conexiones sospechosas" },
-                        { question: "¿Por qué es importante mantener tu sistema operativo actualizado?", options: ["Para cambiar el fondo de pantalla", "Para corregir fallos de seguridad y mejorar el rendimiento", "Para que ocupe más espacio", "Para que se vea más moderno"], answer: "Para corregir fallos de seguridad y mejorar el rendimiento" },
-                        { question: "Las copias de seguridad (backups) sirven para...", options: ["Hacer tu PC más lenta", "Guardar tus archivos importantes en caso de pérdida o daño", "Compartir archivos con amigos", "Protegerte del phishing"], answer: "Guardar tus archivos importantes en caso de pérdida o daño" },
-                        { question: "¿Cuál es el objetivo principal del phishing?", options: ["Enviar spam", "Robar tu información personal o financiera", "Instalar un antivirus", "Mejorar tu conexión a internet"], answer: "Robar tu información personal o financiera" },
-                        { question: "Si usas la misma contraseña para todas tus cuentas, ¿qué riesgo corres?", options: ["Que tu internet sea lento", "Que si una cuenta es comprometida, todas tus cuentas estén en riesgo", "Que no puedas acceder a tus archivos", "Que tu PC se caliente"], answer: "Que si una cuenta es comprometida, todas tus cuentas estén en riesgo" },
-                        { question: "Un término general para cualquier software diseñado para dañar o explotar un sistema informático es...", options: ["Hardware", "Freeware", "Malware", "Shareware"], answer: "Malware" }
-                    ]
-                }
-            },
-            {
-                icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M12 20.005v-2.197m0 0a8.001 8.001 0 009.23-1.636l.307.307a.75.75 0 01-1.06 1.06l-.307-.307A8.001 8.001 0 0012 20.005zm0-15.651a8.001 8.001 0 00-9.23 1.636l-.307-.307a.75.75 0 011.06-1.06l.307.307A8.001 8.001 0 0012 4.354z" /></svg>`,
-                title: "Día 12: Redes Sociales y Ciudadanía Digital",
-                imageUrl: "https://images.unsplash.com/photo-1517048676732-d65bc9c53698?q=80&w=2070&auto=format&fit=crop",
-                content: "<b>1. ¿Qué son las Redes Sociales?</b> Son plataformas online que permiten a las personas conectarse, interactuar y compartir contenido (fotos, videos, textos) con amigos, familiares y el mundo. Ejemplos: <b>Facebook, Instagram, TikTok, Twitter/X, LinkedIn</b>.<br><br><b>2. Privacidad y Configuración:</b> Es fundamental proteger tu información. Revisa y ajusta la <b>Configuración de Privacidad</b> en cada red social para controlar quién ve tus publicaciones, fotos e información personal. Sé consciente de lo que compartes, ya que una vez en línea, es difícil de borrar.<br><br><b>3. Ciudadanía Digital:</b> Ser un buen ciudadano digital significa usar Internet de forma responsable, ética y segura. Esto incluye respetar a los demás, proteger tu privacidad y la de otros, no difundir información falsa (fake news) y ser consciente de tu huella digital (el rastro que dejas online).<br><br><b>4. Ciberacoso y Huella Digital:</b> El <b>Ciberacoso (Cyberbullying)</b> es el acoso o intimidación a través de medios digitales. Si lo experimentas o lo ves, no te quedes callado y busca ayuda. La <b>Huella Digital</b> es toda la información sobre ti que existe en Internet, creada por tus publicaciones, comentarios, fotos y actividad. Es importante que sea positiva, ya que puede afectarte en el futuro (ej: al buscar trabajo).",
-                quiz: {
-                    questions: [
-                        { question: "¿Cuál de estas NO es una red social?", options: ["Facebook", "Instagram", "Google Chrome", "TikTok"], answer: "Google Chrome" },
-                        { question: "Para controlar quién ve tus publicaciones en redes sociales, debes ajustar la...", options: ["Configuración de Idioma", "Configuración de Privacidad", "Configuración de Notificaciones", "Configuración de Sonido"], answer: "Configuración de Privacidad" },
-                        { question: "La 'huella digital' se refiere a...", options: ["Las marcas de tus dedos en la pantalla", "Toda la información sobre ti que existe en Internet", "La forma en que usas tu mouse", "Un tipo de contraseña"], answer: "Toda la información sobre ti que existe en Internet" },
-                        { question: "Ser un buen ciudadano digital implica...", options: ["Publicar todo lo que haces", "Ignorar los comentarios de otros", "Usar Internet de forma responsable y ética", "Compartir información falsa"], answer: "Usar Internet de forma responsable y ética" },
-                        { question: "Si alguien te acosa por redes sociales, ¿qué debes hacer?", options: ["Ignorarlo", "Responder con más acoso", "Bloquearlo, guardar pruebas y buscar ayuda", "Publicar su información personal"], answer: "Bloquearlo, guardar pruebas y buscar ayuda" },
-                        { question: "¿Por qué es importante ser consciente de lo que compartes en línea?", options: ["Porque ocupa mucho espacio", "Porque una vez en línea, es difícil de borrar", "Porque solo tus amigos lo verán", "Porque nadie le presta atención"], answer: "Porque una vez en línea, es difícil de borrar" },
-                        { question: "Difundir 'fake news' (noticias falsas) es una práctica de...", options: ["Buena ciudadanía digital", "Ciberacoso", "Navegación segura", "Mala ciudadanía digital"], answer: "Mala ciudadanía digital" },
-                        { question: "LinkedIn es una red social enfocada en...", options: ["Compartir fotos", "Videos cortos", "Conexiones profesionales y laborales", "Juegos"], answer: "Conexiones profesionales y laborales" },
-                        { question: "Si un amigo te pide tu contraseña de una red social, ¿qué deberías hacer?", options: ["Dársela", "Pedirle la suya a cambio", "Negarte y explicarle por qué no debes compartirla", "Dársela solo por un momento"], answer: "Negarte y explicarle por qué no debes compartirla" },
-                        { question: "La privacidad en línea se trata de...", options: ["No usar internet", "Controlar quién puede ver y usar tu información personal", "Compartir todo con todos", "Tener muchos seguidores"], answer: "Controlar quién puede ver y usar tu información personal" }
-                    ]
-                }
-            },
-            {
-                icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>`,
-                title: "Día 13: Introducción a la Programación (Conceptos)",
-                imageUrl: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=2070&auto=format&fit=crop",
-                content: "<b>1. ¿Qué es Programar?</b> Programar es darle instrucciones a una computadora para que realice una tarea específica. Es como escribir una receta muy detallada que la computadora seguirá paso a paso. Estas instrucciones se escriben en un <b>Lenguaje de Programación</b>.<br><br><b>2. Lenguajes de Programación Populares:</b> Hay muchos lenguajes, cada uno con sus usos. <b>Python</b> es popular por su facilidad para aprender y se usa en ciencia de datos, web y IA. <b>JavaScript</b> es el lenguaje de las páginas web interactivas. <b>Java</b> se usa mucho en aplicaciones Android y sistemas empresariales. <b>Scratch</b> es un lenguaje visual ideal para principiantes.<br><br><b>3. Algoritmos y Lógica:</b> Un <b>Algoritmo</b> es una secuencia de pasos lógicos y ordenados para resolver un problema. Antes de programar, piensas en el algoritmo. La <b>Lógica</b> es la forma en que el programa toma decisiones (ej: 'SI la puerta está abierta, ENTONCES entra').<br><br><b>4. Variables y Bucles:</b> Una <b>Variable</b> es un espacio en la memoria de la computadora donde puedes guardar información que puede cambiar (ej: tu nombre, tu edad). Un <b>Bucle (Loop)</b> es una instrucción que repite un bloque de código varias veces. Esto es útil para tareas repetitivas, como contar del 1 al 100 o procesar una lista de elementos.",
-                quiz: {
-                    questions: [
-                        { question: "¿Qué es programar?", options: ["Dibujar en la computadora", "Darle instrucciones a la computadora para una tarea", "Navegar por internet", "Hacer presentaciones"], answer: "Darle instrucciones a la computadora para una tarea" },
-                        { question: "¿Cuál de estos es un lenguaje de programación visual ideal para principiantes?", options: ["Python", "JavaScript", "Scratch", "Java"], answer: "Scratch" },
-                        { question: "Una secuencia de pasos lógicos y ordenados para resolver un problema se llama...", options: ["Variable", "Bucle", "Algoritmo", "Función"], answer: "Algoritmo" },
-                        { question: "Un 'bucle' en programación sirve para...", options: ["Guardar información", "Repetir un bloque de código varias veces", "Tomar decisiones", "Mostrar imágenes"], answer: "Repetir un bloque de código varias veces" },
-                        { question: "¿Qué lenguaje de programación es muy usado para páginas web interactivas?", options: ["Python", "Java", "JavaScript", "C++"], answer: "JavaScript" },
-                        { question: "Un espacio en la memoria donde puedes guardar información que puede cambiar se llama...", options: ["Constante", "Bucle", "Función", "Variable"], answer: "Variable" },
-                        { question: "Si un programa dice 'SI hace frío, ENTONCES ponte un abrigo', esto es un ejemplo de...", options: ["Bucle", "Variable", "Lógica", "Algoritmo"], answer: "Lógica" },
-                        { question: "¿Cuál de estos NO es un lenguaje de programación?", options: ["Python", "HTML", "Java", "JavaScript"], answer: "HTML" },
-                        { question: "Si quieres que un programa cuente del 1 al 100 automáticamente, usarías principalmente...", options: ["Una variable", "Un bucle", "Una función", "Una condición"], answer: "Un bucle" },
-                        { question: "Antes de escribir el código, es buena idea diseñar el...", options: ["Diseño de la interfaz", "Algoritmo", "Tamaño de la fuente", "Color del texto"], answer: "Algoritmo" }
-                    ]
-                }
-            },
-            {
-                icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-rose-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>`,
-                title: "Día 14: Resolución de Problemas Comunes de PC",
-                imageUrl: "https://images.unsplash.com/photo-1542395689-183021703c9d?q=80&w=2070&auto=format&fit=crop",
-                content: "<b>1. El Enfoque Lógico:</b> Cuando algo falla, no te asustes. Sigue un proceso: <b>Identifica el problema</b> (¿qué está pasando?). <b>Investiga</b> (busca en Google el mensaje de error). <b>Prueba soluciones</b> (una a la vez). <b>Verifica</b> si se solucionó. Si no, <b>deshaz</b> el último cambio y prueba otra cosa. Anota lo que haces.<br><br><b>2. Problemas Comunes y Soluciones Rápidas:</b><br> - <i>PC lenta:</i> Cierra programas que no uses, reinicia, libera espacio en disco, desinstala apps que no usas.<br> - <i>Internet no funciona:</i> Reinicia el router/módem, revisa cables, comprueba Wi-Fi, olvida y reconecta la red.<br> - <i>Programa no responde:</i> Cierra forzosamente (Ctrl+Shift+Esc para Administrador de Tareas en Windows, o Cmd+Option+Esc en Mac).<br> - <i>Pantalla en negro:</i> Revisa cables del monitor, reinicia la PC.<br> - <i>No hay sonido:</i> Revisa volumen, cables de altavoces/auriculares, actualiza drivers de sonido.<br><br><b>3. Actualizaciones y Drivers:</b> Los <b>Drivers (controladores)</b> son programas que permiten que el hardware (ej: tarjeta de sonido, impresora) se comunique con el sistema operativo. Si un dispositivo no funciona, a veces necesitas actualizar su driver. El sistema operativo también necesita actualizaciones regulares para funcionar bien.<br><br><b>4. Herramientas del Sistema:</b> Tu PC tiene herramientas útiles: el <b>Administrador de Tareas</b> (Windows) para ver qué programas se están ejecutando y cerrarlos. La <b>Restauración del Sistema</b> (Windows) te permite volver a un punto anterior si una instalación causó problemas. El <b>Liberador de Espacio en Disco</b> (Windows) elimina archivos temporales.",
-                quiz: {
-                    questions: [
-                        { question: "Si tu PC está muy lenta, ¿qué es lo primero que deberías intentar?", options: ["Comprar una nueva", "Reiniciarla", "Instalar más programas", "Cambiar el fondo de pantalla"], answer: "Reiniciarla" },
-                        { question: "Para cerrar un programa que no responde en Windows, ¿qué herramienta usas?", options: ["Explorador de Archivos", "Panel de Control", "Administrador de Tareas", "Calculadora"], answer: "Administrador de Tareas" },
-                        { question: "Si el internet no funciona, ¿qué dispositivo deberías reiniciar primero?", options: ["La impresora", "El monitor", "El router/módem", "El teclado"], answer: "El router/módem" },
-                        { question: "Los programas que permiten que el hardware se comunique con el sistema operativo se llaman...", options: ["Aplicaciones", "Juegos", "Drivers/Controladores", "Periféricos"], answer: "Drivers/Controladores" },
-                        { question: "Si no tienes sonido en tu PC, ¿qué deberías revisar primero?", options: ["El brillo de la pantalla", "El volumen y los cables de los altavoces", "La conexión a internet", "La batería"], answer: "El volumen y los cables de los altavoces" },
-                        { question: "La 'Restauración del Sistema' en Windows sirve para...", options: ["Borrar todos tus archivos", "Volver a un punto anterior del sistema si hay problemas", "Instalar nuevos programas", "Hacer copias de seguridad"], answer: "Volver a un punto anterior del sistema si hay problemas" },
-                        { question: "¿Por qué es importante liberar espacio en tu disco duro si tu PC está lenta?", options: ["Para que los archivos se guarden más rápido", "Para que el sistema operativo tenga más espacio para funcionar", "Para que el internet sea más rápido", "Para que los juegos se vean mejor"], answer: "Para que el sistema operativo tenga más espacio para funcionar" },
-                        { question: "Si tu pantalla está en negro, pero la PC parece encendida, ¿qué cable deberías revisar?", options: ["El cable de corriente del teclado", "El cable USB del mouse", "El cable HDMI/VGA del monitor", "El cable de red"], answer: "El cable HDMI/VGA del monitor" },
-                        { question: "Cuando investigas un problema, ¿dónde es un buen lugar para buscar soluciones?", options: ["En un libro de cocina", "En Google o foros especializados", "Preguntarle a un amigo que no sabe de computadoras", "En el periódico"], answer: "En Google o foros especializados" },
-                        { question: "La regla de oro al probar soluciones es...", options: ["Probar muchas a la vez", "Probar una a la vez y verificar", "No anotar lo que haces", "Pedir ayuda sin intentar nada"], answer: "Probar una a la vez y verificar" }
-                    ]
-                }
-            },
-            {
-                icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-fuchsia-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>`,
-                title: "Día 15: Edición Básica de Imágenes y Video",
-                imageUrl: "https://images.unsplash.com/photo-1542435503-956c469947f6?q=80&w=2070&auto=format&fit=crop",
-                content: "<b>1. Conceptos Básicos de Imagen:</b> Una imagen digital se compone de <b>Píxeles</b> (pequeños cuadrados de color). La <b>Resolución</b> es la cantidad de píxeles (ej: 1920x1080). A mayor resolución, más detalle. Los formatos comunes son <b>JPG/JPEG</b> (fotos, con compresión), <b>PNG</b> (imágenes con transparencia) y <b>GIF</b> (imágenes animadas cortas).<br><br><b>2. Herramientas de Edición de Imagen:</b> Hay programas sencillos y complejos. <b>Paint (Windows)</b> o <b>Vista Previa (Mac)</b> son para ediciones muy básicas. <b>GIMP</b> (gratuito) y <b>Adobe Photoshop</b> (profesional) son para edición avanzada. Puedes <b>Recortar</b> (eliminar partes no deseadas), <b>Redimensionar</b> (cambiar tamaño), ajustar <b>Brillo/Contraste</b> y añadir <b>Texto</b>.<br><br><b>3. Conceptos Básicos de Video:</b> Un video es una secuencia de imágenes (fotogramas) que se reproducen rápidamente. La <b>Resolución</b> (ej: 1080p, 4K) y la <b>Tasa de Fotogramas (FPS)</b> afectan la calidad y fluidez. Formatos comunes: <b>MP4, MOV, AVI</b>.<br><br><b>4. Herramientas de Edición de Video:</b> Para videos sencillos, puedes usar <b>CapCut (móvil/web)</b>, <b>Clipchamp (Windows)</b> o <b>iMovie (Mac)</b>. Para algo más avanzado, <b>DaVinci Resolve</b> (gratuito y profesional) o <b>Adobe Premiere Pro</b>. Puedes <b>Cortar y Unir Clips</b>, añadir <b>Música</b>, <b>Transiciones</b> y <b>Texto</b>, y ajustar el <b>Volumen</b>.",
-                quiz: {
-                    questions: [
-                        { question: "Las imágenes digitales están compuestas por pequeños cuadrados de color llamados...", options: ["Bytes", "Vectores", "Píxeles", "Megabytes"], answer: "Píxeles" },
-                        { question: "¿Qué formato de imagen es ideal para fotos con transparencia?", options: ["JPG", "GIF", "PNG", "BMP"], answer: "PNG" },
-                        { question: "Si quieres eliminar una parte no deseada de una foto, usas la herramienta de...", options: ["Redimensionar", "Recortar", "Ajustar Brillo", "Rotar"], answer: "Recortar" },
-                        { question: "¿Cuál de estos programas es para edición de video en Windows?", options: ["Photoshop", "Excel", "Clipchamp", "Word"], answer: "Clipchamp" },
-                        { question: "La cantidad de píxeles en una imagen se refiere a su...", options: ["Tamaño de archivo", "Formato", "Resolución", "Compresión"], answer: "Resolución" },
-                        { question: "Un video es una secuencia de...", options: ["Sonidos", "Textos", "Fotogramas", "Documentos"], answer: "Fotogramas" },
-                        { question: "¿Qué programa es una alternativa gratuita y profesional a Adobe Photoshop?", options: ["Paint", "GIMP", "PowerPoint", "Word"], answer: "GIMP" },
-                        { question: "Si quieres cambiar el tamaño de una imagen sin recortarla, usas la herramienta de...", options: ["Recortar", "Redimensionar", "Brillo", "Contraste"], answer: "Redimensionar" },
-                        { question: "Para añadir efectos visuales al pasar de un clip de video a otro, usas...", options: ["Música", "Texto", "Transiciones", "Volumen"], answer: "Transiciones" },
-                        { question: "¿Cuál de estos NO es un formato de video común?", options: ["MP4", "MOV", "AVI", "PNG"], answer: "PNG" }
-                    ]
-                }
-            },
-            {
-                icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /></svg>`,
-                title: "Día 16: Hardware Avanzado y Actualizaciones",
-                imageUrl: "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?q=80&w=2070&auto=format&fit=crop",
-                content: "<b>1. Componentes Clave Avanzados:</b> Además de lo básico, hay más. La <b>GPU (Unidad de Procesamiento Gráfico)</b>, o tarjeta de video, es crucial para juegos y diseño gráfico. La <b>Fuente de Poder</b> suministra energía a todos los componentes. El <b>Sistema de Refrigeración</b> (ventiladores, disipadores) mantiene la PC fría para evitar daños.<br><br><b>2. Tipos de Almacenamiento:</b> Ya conoces el Disco Duro (HDD) y el SSD. Los <b>HDD</b> son más baratos y tienen más capacidad, pero son más lentos. Los <b>SSD</b> son mucho más rápidos (arranque de PC, carga de programas) pero más caros. Para el sistema operativo y programas principales, un SSD es ideal.<br><br><b>3. ¿Cuándo Actualizar tu PC?</b> Si tu PC está muy lenta para tus tareas, si los programas nuevos no funcionan bien, si quieres jugar juegos modernos o si necesitas más espacio, es hora de pensar en una actualización. No siempre necesitas una PC nueva; a veces, con más RAM o un SSD, basta.<br><br><b>4. Actualizaciones Comunes:</b> Las actualizaciones más comunes y efectivas son: <b>Aumentar la Memoria RAM</b> (permite más programas abiertos y multitarea fluida). <b>Cambiar a un SSD</b> (mejora drásticamente la velocidad general del sistema). <b>Mejorar la Tarjeta Gráfica (GPU)</b> (para juegos o edición de video). A veces, actualizar el procesador, pero esto suele ser más complejo y requiere compatibilidad con la placa base.",
-                quiz: {
-                    questions: [
-                        { question: "¿Qué componente es crucial para juegos y diseño gráfico?", options: ["RAM", "CPU", "GPU", "Disco Duro"], answer: "GPU" },
-                        { question: "¿Cuál tipo de almacenamiento es más rápido para el arranque del sistema operativo?", options: ["HDD", "SSD", "Pendrive", "CD-ROM"], answer: "SSD" },
-                        { question: "Si tu PC se calienta mucho, ¿qué sistema es el más importante para evitar daños?", options: ["Fuente de Poder", "Sistema de Refrigeración", "Teclado", "Monitor"], answer: "Sistema de Refrigeración" },
-                        { question: "¿Cuál de estas es la actualización más efectiva para acelerar la velocidad general de tu PC?", options: ["Cambiar el mouse", "Aumentar la memoria RAM", "Cambiar a un SSD", "Actualizar el sistema operativo"], answer: "Cambiar a un SSD" },
-                        { question: "La 'Fuente de Poder' en una PC tiene la función de...", options: ["Procesar datos", "Suministrar energía a los componentes", "Almacenar archivos", "Mostrar imágenes"], answer: "Suministrar energía a los componentes" },
-                        { question: "¿Por qué un HDD es más lento que un SSD?", options: ["Es más pequeño", "Usa partes mecánicas que giran", "Es más caro", "Es más antiguo"], answer: "Usa partes mecánicas que giran" },
-                        { question: "Si necesitas abrir muchos programas a la vez sin que la PC se ralentice, ¿qué componente deberías aumentar?", options: ["Disco Duro", "Procesador", "Memoria RAM", "Tarjeta Gráfica"], answer: "Memoria RAM" },
-                        { question: "¿Cuándo NO es necesario actualizar tu PC?", options: ["Cuando está muy lenta", "Cuando los programas nuevos no funcionan", "Cuando funciona perfectamente para tus necesidades", "Cuando quieres jugar juegos modernos"], answer: "Cuando funciona perfectamente para tus necesidades" },
-                        { question: "La actualización de la GPU es importante si te dedicas a...", options: ["Escribir documentos", "Navegar por internet", "Jugar videojuegos o diseño gráfico", "Hacer hojas de cálculo"], answer: "Jugar videojuegos o diseño gráfico" },
-                        { question: "Si tu PC tiene un HDD y le instalas un SSD, ¿qué mejora notarás más?", options: ["Más espacio de almacenamiento", "Arranque del sistema y carga de programas mucho más rápidos", "Mejor calidad de imagen", "Mayor duración de la batería"], answer: "Arranque del sistema y carga de programas mucho más rápidos" }
-                    ]
-                }
-            },
-            {
-                icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 20v-3m0 0l.001 0a4.5 4.5 0 004.58-4.58A4.5 4.5 0 0012 8.42a4.5 4.5 0 00-4.58 4.58A4.5 4.5 0 0012 17zm0 0c1.5 0 2.8-.75 3.6-2m-7.2 0c-1.5 0-2.8-.75-3.6-2M12 3a9 9 0 100 18 9 9 0 000-18z" /></svg>`,
-                title: "Día 17: Inteligencia Artificial para Estudiantes",
-                imageUrl: "https://images.unsplash.com/photo-1620712943567-925ee820490b?q=80&w=2070&auto=format&fit=crop",
-                content: "<b>1. ¿Qué es la Inteligencia Artificial (IA)?</b> Es la capacidad de las máquinas para imitar la inteligencia humana, como aprender, razonar, resolver problemas y entender el lenguaje. No es magia, sino algoritmos y datos. La IA está transformando cómo interactuamos con la tecnología.<br><br><b>2. Ejemplos de IA en tu Vida Diaria:</b> La IA ya te rodea. Los <b>Asistentes Virtuales</b> (Siri, Google Assistant, Alexa) usan IA para entender tus comandos de voz. Los <b>Recomendadores</b> de Netflix o Spotify sugieren contenido basado en tus gustos. Los <b>Traductores Automáticos</b> (Google Translate) y los <b>Filtros de Spam</b> en tu correo también usan IA. Incluso los sistemas de reconocimiento facial en tu celular.<br><br><b>3. IA en la Educación:</b> La IA puede ser una gran aliada. Hay herramientas que te ayudan a <b>Resumir Textos</b>, <b>Generar Ideas</b> para ensayos, <b>Corregir Gramática</b>, e incluso <b>Personalizar el Aprendizaje</b> adaptándose a tu ritmo. Pero recuerda, son herramientas de apoyo, no para hacer el trabajo por ti.<br><br><b>4. Ética y Futuro de la IA:</b> Es importante usar la IA de forma <b>Ética</b>, siendo honesto sobre cuándo la usas y verificando la información que genera. La IA tiene un enorme potencial para mejorar la medicina, el transporte y la ciencia, pero también plantea desafíos sobre la privacidad y el empleo. Entenderla te prepara para el futuro.",
-                quiz: {
-                    questions: [
-                        { question: "¿Qué es la Inteligencia Artificial?", options: ["Una nueva computadora", "La capacidad de las máquinas para imitar la inteligencia humana", "Un tipo de juego de video", "Un lenguaje de programación"], answer: "La capacidad de las máquinas para imitar la inteligencia humana" },
-                        { question: "¿Cuál de estos es un ejemplo de IA en la vida diaria?", options: ["Una calculadora", "Un procesador de texto", "Un asistente virtual como Siri", "Un disco duro"], answer: "Un asistente virtual como Siri" },
-                        { question: "Los recomendadores de Netflix o Spotify usan IA para...", options: ["Mostrar anuncios", "Sugerir contenido basado en tus gustos", "Controlar el volumen", "Descargar películas"], answer: "Sugerir contenido basado en tus gustos" },
-                        { question: "¿Cuál de estas NO es una forma en que la IA puede ayudarte en tus estudios?", options: ["Resumir textos", "Hacer todo tu trabajo por ti", "Corregir gramática", "Generar ideas para ensayos"], answer: "Hacer todo tu trabajo por ti" },
-                        { question: "Cuando usas IA, es importante ser...", options: ["Secreto", "Deshonesto", "Ético y verificar la información", "Dependiente de ella"], answer: "Ético y verificar la información" },
-                        { question: "Los filtros de spam en tu correo electrónico utilizan IA para...", options: ["Enviar correos no deseados", "Detectar y bloquear correos basura", "Organizar tus contactos", "Cambiar el diseño de tu correo"], answer: "Detectar y bloquear correos basura" },
-                        { question: "¿Qué es un algoritmo en el contexto de la IA?", options: ["Un tipo de robot", "Un conjunto de reglas que la IA sigue para aprender y resolver problemas", "Una base de datos", "Un tipo de hardware"], answer: "Un conjunto de reglas que la IA sigue para aprender y resolver problemas" },
-                        { question: "La IA puede personalizar el aprendizaje adaptándose a tu ritmo. ¿Qué significa esto?", options: ["Que la IA te dice qué estudiar", "Que la IA ajusta los materiales y la velocidad a tus necesidades", "Que la IA te da las respuestas", "Que la IA te enseña a programar"], answer: "Que la IA ajusta los materiales y la velocidad a tus necesidades" },
-                        { question: "¿Cuál es un desafío ético de la IA?", options: ["Que es muy cara", "La privacidad de los datos", "Que es difícil de usar", "Que no es útil"], answer: "La privacidad de los datos" },
-                        { question: "Los sistemas de reconocimiento facial en los celulares son un ejemplo de IA que usa...", options: ["Sensores de movimiento", "Cámaras y algoritmos de visión por computadora", "Micrófonos", "GPS"], answer: "Cámaras y algoritmos de visión por computadora" }
-                    ]
-                }
-            },
-            {
-                icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>`,
-                title: "Día 18: Creación de Contenido Digital (Blogs/Vlogs)",
-                imageUrl: "https://images.unsplash.com/photo-1517694717765-a729b1178822?q=80&w=2070&auto=format&fit=crop",
-                content: "<b>1. ¿Qué es el Contenido Digital?</b> Es cualquier tipo de información (texto, imágenes, audio, video) que se crea y se distribuye a través de plataformas digitales. Puede ser educativo, de entretenimiento, informativo, etc. Tú mismo puedes ser un creador de contenido.<br><br><b>2. Blogs y Vlogs:</b> Un <b>Blog</b> es un sitio web donde una persona o grupo escribe regularmente sobre un tema específico (texto, imágenes). Un <b>Vlog</b> es un blog en formato de video, generalmente publicado en plataformas como YouTube. Ambos son formas populares de compartir tus ideas y pasiones.<br><br><b>3. Plataformas Populares:</b> Para blogs, puedes usar <b>WordPress, Blogger o Medium</b>. Para vlogs, la plataforma principal es <b>YouTube</b>. Para contenido más corto y visual, <b>TikTok</b> e <b>Instagram Reels</b> son populares. Cada plataforma tiene sus propias herramientas y audiencia.<br><br><b>4. Consejos para Crear Contenido:</b><br> - <b>Elige un tema que te apasione:</b> Será más fácil y divertido crear.<br> - <b>Conoce a tu audiencia:</b> ¿Para quién estás creando? ¿Qué les interesa?<br> - <b>Calidad es clave:</b> Buenas fotos, buen audio en videos, texto bien escrito.<br> - <b>Sé constante:</b> Publica regularmente para mantener a tu audiencia.<br> - <b>Interactúa:</b> Responde a comentarios y preguntas.<br> - <b>Sé original:</b> Ofrece tu perspectiva única.",
-                quiz: {
-                    questions: [
-                        { question: "¿Qué es un Blog?", options: ["Un tipo de videojuego", "Un sitio web donde se escribe regularmente sobre un tema", "Una red social de fotos", "Un programa para editar video"], answer: "Un sitio web donde se escribe regularmente sobre un tema" },
-                        { question: "¿Cuál es la principal diferencia entre un Blog y un Vlog?", options: ["El Blog es más antiguo", "El Blog es de texto y el Vlog es de video", "El Vlog es más largo", "El Blog es solo para noticias"], answer: "El Blog es de texto y el Vlog es de video" },
-                        { question: "¿Qué plataforma es la principal para publicar Vlogs?", options: ["WordPress", "Instagram", "YouTube", "Facebook"], answer: "YouTube" },
-                        { question: "Para crear contenido digital, es importante elegir un tema que...", options: ["Sea muy popular", "Te apasione", "Sea difícil de entender", "Solo interese a pocas personas"], answer: "Te apasione" },
-                        { question: "¿Cuál de estas NO es una plataforma popular para Blogs?", options: ["WordPress", "Blogger", "Medium", "TikTok"], answer: "TikTok" },
-                        { question: "Si quieres que tu audiencia siga interesada, debes...", options: ["Publicar solo una vez al año", "Ser constante y publicar regularmente", "No responder a los comentarios", "Copiar contenido de otros"], answer: "Ser constante y publicar regularmente" },
-                        { question: "La 'calidad' en la creación de contenido se refiere a...", options: ["Tener el equipo más caro", "Buenas fotos, buen audio, texto bien escrito", "Publicar muy rápido", "Hacerlo tú solo"], answer: "Buenas fotos, buen audio, texto bien escrito" },
-                        { question: "¿Qué significa 'interactuar' con tu audiencia?", options: ["Ignorar sus comentarios", "Responder a sus preguntas y comentarios", "Solo publicar sin leer nada", "Bloquear a todos"], answer: "Responder a sus preguntas y comentarios" },
-                        { question: "TikTok e Instagram Reels son plataformas populares para contenido...", options: ["Escrito y largo", "De audio solamente", "Corto y visual", "Solo para profesionales"], answer: "Corto y visual" },
-                        { question: "Si quieres que tu contenido sea único, debes...", options: ["Copiar a los demás", "Ofrecer tu perspectiva original", "Usar solo texto", "Publicar sin investigar"], answer: "Ofrecer tu perspectiva original" }
-                    ]
-                }
-            },
-            {
-                icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>`,
-                title: "Día 19: Herramientas Colaborativas Online",
-                imageUrl: "https://images.unsplash.com/photo-1521737711867-ee1360770997?q=80&w=2070&auto=format&fit=crop",
-                content: "<b>1. ¿Qué son las Herramientas Colaborativas?</b> Son aplicaciones y plataformas que permiten a varias personas trabajar juntas en un mismo proyecto o documento en tiempo real, sin importar su ubicación física. Son esenciales para trabajos en grupo y proyectos a distancia.<br><br><b>2. Suites de Oficina Colaborativas:</b> Las más usadas son <b>Google Workspace (Docs, Sheets, Slides)</b> y <b>Microsoft 365 Online (Word, Excel, PowerPoint)</b>. Permiten que múltiples usuarios editen un documento al mismo tiempo, vean los cambios de los demás y dejen comentarios. Esto elimina la necesidad de enviar versiones por correo.<br><br><b>3. Herramientas de Comunicación y Gestión de Proyectos:</b> Para comunicarse en grupo, puedes usar <b>Zoom, Google Meet o Microsoft Teams</b> para videollamadas y chats. Para organizar tareas y proyectos, <b>Trello o Asana</b> son excelentes, permitiendo asignar tareas, establecer fechas límite y seguir el progreso.<br><br><b>4. Ventajas de la Colaboración Online:</b><br> - <b>Eficiencia:</b> Se trabaja más rápido y se evitan duplicidades.<br> - <b>Flexibilidad:</b> Puedes colaborar desde cualquier lugar y dispositivo.<br> - <b>Registro de cambios:</b> Se guarda un historial de quién hizo qué y cuándo.<br> - <b>Mejora la comunicación:</b> Facilita la interacción y el intercambio de ideas.<br> - <b>Acceso centralizado:</b> Todos los archivos y conversaciones están en un solo lugar.",
-                quiz: {
-                    questions: [
-                        { question: "¿Cuál es la principal ventaja de las herramientas colaborativas?", options: ["Solo una persona puede trabajar a la vez", "Permiten trabajar en un proyecto en tiempo real con varias personas", "Son solo para uso personal", "No necesitan internet"], answer: "Permiten trabajar en un proyecto en tiempo real con varias personas" },
-                        { question: "¿Qué suite de oficina online es conocida por su colaboración en tiempo real?", options: ["Microsoft Office (offline)", "Adobe Photoshop", "Google Workspace", "Paint"], answer: "Google Workspace" },
-                        { question: "Si varias personas están editando un documento en Google Docs al mismo tiempo, ¿qué se puede ver?", options: ["Solo el resultado final", "Los cambios de cada persona en tiempo real", "Solo los cambios del dueño del documento", "Nada hasta que se guarde"], answer: "Los cambios de cada persona en tiempo real" },
-                        { question: "¿Qué herramienta usarías para una videollamada con tu grupo de trabajo?", options: ["Trello", "Google Meet", "Google Docs", "Microsoft Excel"], answer: "Google Meet" },
-                        { question: "Una ventaja de la colaboración online es que permite trabajar desde...", options: ["Solo tu computadora", "Solo la oficina", "Cualquier lugar y dispositivo", "Solo con personas en la misma habitación"], answer: "Cualquier lugar y dispositivo" },
-                        { question: "¿Qué herramienta es útil para organizar tareas y seguir el progreso de un proyecto en equipo?", options: ["Gmail", "Trello", "YouTube", "Netflix"], answer: "Trello" },
-                        { question: "El 'registro de cambios' en un documento colaborativo online te permite ver...", options: ["Quién lo imprimió", "Quién hizo qué y cuándo", "Solo los errores", "La versión final del documento"], answer: "Quién hizo qué y cuándo" },
-                        { question: "¿Cuál de estas NO es una ventaja de la colaboración online?", options: ["Mayor eficiencia", "Menos flexibilidad", "Mejora la comunicación", "Acceso centralizado a archivos"], answer: "Menos flexibilidad" },
-                        { question: "Si necesitas que tu equipo edite un documento de texto juntos, ¿qué usarías?", options: ["Un blog", "Un procesador de texto offline", "Google Docs", "Una hoja de cálculo"], answer: "Google Docs" },
-                        { question: "Las herramientas colaborativas son especialmente útiles para...", options: ["Juegos individuales", "Trabajos en grupo y proyectos a distancia", "Ver películas", "Escuchar música"], answer: "Trabajos en grupo y proyectos a distancia" }
-                    ]
-                }
-            },
-            {
-                icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-fuchsia-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 20v-3m0 0l.001 0a4.5 4.5 0 004.58-4.58A4.5 4.5 0 0012 8.42a4.5 4.5 0 00-4.58 4.58A4.5 4.5 0 0012 17zm0 0c1.5 0 2.8-.75 3.6-2m-7.2 0c-1.5 0-2.8-.75-3.6-2M12 3a9 9 0 100 18 9 9 0 000-18z" /></svg>`,
-                title: "Día 20: Tu Proyecto Final y Futuro Digital",
-                imageUrl: "https://images.unsplash.com/photo-1542435503-956c469947f6?q=80&w=2070&auto=format&fit=crop",
-                content: "<b>1. El Proyecto Final:</b> ¡Felicidades, has llegado al último día! Ahora es el momento de aplicar todo lo aprendido. Tu proyecto final es una oportunidad para demostrar tus habilidades y creatividad. Puede ser una presentación sobre un tema que te interese, un pequeño blog, un presupuesto en hoja de cálculo o incluso un video corto. ¡Sé creativo y diviértete!<br><br><b>2. Repaso y Consolidación:</b> Revisa los días anteriores. ¿Hay algún tema que te parezca más difícil? Vuelve a leer el contenido y haz los quizzes de nuevo. La práctica hace al maestro. Cuanto más uses estas herramientas, más cómodo te sentirás.<br><br><b>3. Aprendizaje Continuo:</b> El mundo digital cambia muy rápido. Lo que aprendiste hoy es una base excelente, pero el aprendizaje nunca termina. Sigue explorando nuevas herramientas, leyendo noticias de tecnología, tomando cursos online y practicando. ¡La curiosidad es tu mejor aliada!<br><br><b>4. Tu Futuro Digital:</b> Las habilidades que has adquirido son valiosas para cualquier carrera o estudio. Desde la universidad hasta el trabajo, la computación es fundamental. Piensa en cómo puedes usar estas herramientas para tus metas personales y profesionales. ¡El futuro es digital y tú estás listo para ser parte de él!",
-                quiz: {
-                    questions: [
-                        { question: "¿Cuál es el propósito principal del proyecto final?", options: ["Terminar el curso rápido", "Demostrar tus habilidades y creatividad con lo aprendido", "Copiar un proyecto existente", "No hacer nada"], answer: "Demostrar tus habilidades y creatividad con lo aprendido" },
-                        { question: "Si un tema te parece difícil, ¿qué deberías hacer?", options: ["Ignorarlo", "Volver a leer el contenido y practicar", "Pedir que te lo hagan", "Rendirte"], answer: "Volver a leer el contenido y practicar" },
-                        { question: "¿Qué tan rápido cambia el mundo digital?", options: ["Muy lento", "No cambia", "Muy rápido", "Solo cambia una vez al año"], answer: "Muy rápido" },
-                        { question: "Para mantenerte actualizado en el mundo digital, debes...", options: ["Dejar de estudiar", "Dejar de usar la computadora", "Seguir aprendiendo y explorando nuevas herramientas", "Solo usar lo que ya sabes"], answer: "Seguir aprendiendo y explorando nuevas herramientas" },
-                        { question: "¿Cuál de estas NO es una forma de aplicar lo aprendido en tu futuro?", options: ["Hacer presentaciones para la escuela", "Organizar tus finanzas con hojas de cálculo", "No usar ninguna herramienta digital", "Crear un portafolio online"], answer: "No usar ninguna herramienta digital" },
-                        { question: "La curiosidad en el aprendizaje digital es...", options: ["Una distracción", "Tu peor enemiga", "Tu mejor aliada", "Algo innecesario"], answer: "Tu mejor aliada" },
-                        { question: "¿Qué tipo de proyecto final podrías hacer para demostrar tus habilidades de edición de video?", options: ["Un documento de texto", "Un presupuesto en Excel", "Un blog escrito", "Un video corto sobre un tema"], answer: "Un video corto sobre un tema" },
-                        { question: "La práctica en computación es importante porque...", options: ["Te hace más lento", "Te ayuda a sentirte más cómodo y dominar las herramientas", "Te aburre", "No sirve de nada"], answer: "Te ayuda a sentirte más cómodo y dominar las herramientas" },
-                        { question: "Las habilidades de computación que has adquirido son valiosas para...", options: ["Solo para jugar", "Solo para la escuela", "Cualquier carrera o estudio futuro", "Solo para programadores"], answer: "Cualquier carrera o estudio futuro" },
-                        { question: "Después de este curso, ¿tu aprendizaje digital ha terminado?", options: ["Sí, ya sabes todo", "No, el aprendizaje es continuo", "Solo si no hay nuevas tecnologías", "Solo si no quieres aprender más"], answer: "No, el aprendizaje es continuo" }
-                    ]
-                }
-            }
-        ];
+            <div>
+                <h3 class="subsection-title text-2xl md:text-3xl mb-4">¿Cómo lo Hacemos?</h3>
+                <ul class="list-none pl-0 text-lg">
+                    <li class="list-item"><strong>Diagnóstico continuo:</strong> Observamos cómo abordas los problemas.</li>
+                    <li class="list-item"><strong>Resultados cualitativos:</strong> Notamos tu participación, tu tiempo dedicado, tu amor por las matemáticas.</li>
+                    <li class="list-item"><strong>Análisis de actitud:</strong> Vemos cómo tu gusto por las matemáticas se relaciona con tu desempeño.</li>
+                    <li class="list-item"><strong>Tu opinión cuenta:</strong> Recogemos lo que piensas sobre tu progreso.</li>
+                </ul>
+            </div>
+        </section>
 
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
-        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
-        const courseContainer = document.getElementById('course-container');
-        
-        const toggleTheme = () => {
-            themeToggleDarkIcon.classList.toggle('hidden');
-            themeToggleLightIcon.classList.toggle('hidden');
-            const isDark = document.documentElement.classList.toggle('dark');
-            localStorage.setItem('color-theme', isDark ? 'dark' : 'light');
-        };
+        <!-- Sección: Conclusión -->
+        <section class="card text-center bg-blue-50 border-blue-200 border-2">
+            <h2 class="section-title text-3xl md:text-4xl mb-6">Conclusión: Un Camino de Crecimiento Constante</h2>
+            <p class="text-lg md:text-xl mb-6">
+                Desarrollar la perseverancia resolutora es un viaje emocionante. Cultivando una mentalidad de crecimiento, con el apoyo adecuado, la práctica constante y un ambiente de colaboración, estarás equipado para enfrentar cualquier desafío matemático.
+            </p>
+            <p class="text-2xl md:text-3xl font-bold text-blue-700">
+                ¡La perseverancia no es solo una habilidad, es una actitud que transforma tu aprendizaje!
+            </p>
+        </section>
 
-        themeToggleBtn.addEventListener('click', toggleTheme);
-
-        if (document.documentElement.classList.contains('dark')) {
-            themeToggleLightIcon.classList.remove('hidden');
-        } else {
-            themeToggleDarkIcon.classList.remove('hidden');
-        }
-
-        // Function to create and append day elements
-        const createDayElement = (day, dayNumber, savedScoreData) => {
-            const dayWrapper = document.createElement('div');
-            dayWrapper.className = 'border border-gray-200 dark:border-gray-700/50 rounded-2xl shadow-lg shadow-fuchsia-500/10 dark:shadow-fuchsia-800/10 overflow-hidden';
-
-            const dayHeader = document.createElement('button');
-            dayHeader.className = 'w-full text-left p-5 flex justify-between items-center bg-white dark:bg-gray-800 hover:bg-pink-50/50 dark:hover:bg-gray-700/50 transition duration-300 focus:outline-none';
-            
-            dayHeader.innerHTML = `
-                <div class="flex items-center">
-                    ${day.icon}
-                    <span class="font-bold text-lg text-gray-800 dark:text-gray-100">${day.title}</span>
-                </div>
-                <svg class="w-6 h-6 transform transition-transform duration-500 text-fuchsia-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-            `;
-            
-            const dayContent = document.createElement('div');
-            dayContent.className = 'day-content bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 leading-relaxed';
-            
-            let contentHTML = `
-                <div class="p-4">
-                    <img src="${day.imageUrl}" alt="Imagen del tema del día" class="w-full h-auto object-cover rounded-lg shadow-md max-h-80">
-                </div>
-                <div class="p-6 pt-2">${day.content}</div>
-            `;
-            
-            if (day.quiz) {
-                contentHTML += `
-                    <div class="quiz-main-container p-6 bg-gradient-to-br from-pink-50 to-purple-100 dark:from-gray-700 dark:to-gray-800 border-t border-gray-200 dark:border-gray-700/50">
-                        <div class="flex justify-between items-center mb-4">
-                            <p class="font-bold text-lg text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-500">✨ ¡Ponte a prueba!</p>
-                            <p class="quiz-progress font-semibold text-gray-600 dark:text-gray-300"></p>
-                        </div>
-                        <div class="quiz-question-container">
-                            <!-- Las preguntas se inyectarán aquí -->
-                        </div>
-                        <div class="quiz-navigation mt-4 flex justify-between items-center">
-                            <button class="quiz-next-btn bg-fuchsia-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-fuchsia-600 transition disabled:bg-gray-400" disabled>Siguiente</button>
-                            <p class="quiz-final-score font-bold text-xl"></p>
-                        </div>
-                        <p class="daily-score-display mt-4 font-bold text-md text-gray-700 dark:text-gray-300"></p>
-                    </div>
-                `;
-            }
-
-            dayContent.innerHTML = contentHTML;
-            dayWrapper.appendChild(dayHeader);
-            dayWrapper.appendChild(dayContent);
-            courseContainer.appendChild(dayWrapper);
-
-            dayHeader.addEventListener('click', () => {
-                dayContent.classList.toggle('open');
-                dayHeader.querySelector('svg:last-child').classList.toggle('rotate-180');
-            });
-
-            if (day.quiz) {
-                const quizData = day.quiz.questions;
-                const quizContainer = dayContent.querySelector('.quiz-question-container');
-                const nextBtn = dayContent.querySelector('.quiz-navigation .quiz-next-btn');
-                const progressEl = dayContent.querySelector('.quiz-progress');
-                const finalScoreEl = dayContent.querySelector('.quiz-final-score');
-                const dailyScoreDisplay = dayContent.querySelector('.daily-score-display');
-                
-                let currentQuestionIndex = 0;
-                let score = 0;
-
-                // Display saved score if available
-                if (savedScoreData) {
-                    dailyScoreDisplay.textContent = `Tu puntaje para este día: ${savedScoreData.score} de ${savedScoreData.maxScore}`;
-                    // Disable quiz if already completed
-                    nextBtn.style.display = 'none';
-                    quizContainer.innerHTML = `<p class="text-xl font-bold text-center text-green-600 dark:text-green-400">¡Quiz Completado!</p>`;
-                    progressEl.textContent = '';
-                }
-
-                function showQuestion() {
-                    const questionData = quizData[currentQuestionIndex];
-                    progressEl.textContent = `Pregunta ${currentQuestionIndex + 1} de ${quizData.length}`;
-                    finalScoreEl.textContent = '';
-                    
-                    let optionsHTML = '';
-                    const shuffledOptions = [...questionData.options].sort(() => Math.random() - 0.5);
-                    shuffledOptions.forEach(optionText => {
-                        optionsHTML += `<button class="quiz-option block w-full text-left p-3 border-2 border-gray-300 dark:border-gray-600 rounded-lg hover:bg-fuchsia-100 dark:hover:bg-fuchsia-900/50 hover:border-fuchsia-400 dark:hover:border-fuchsia-500 transition">${optionText}</button>`;
-                    });
-
-                    quizContainer.innerHTML = `
-                        <p class="font-semibold mb-4 text-gray-800 dark:text-gray-100">${questionData.question}</p>
-                        <div class="options-container space-y-2">${optionsHTML}</div>
-                        <p class="quiz-feedback mt-4 font-bold text-lg h-6"></p>
-                    `;
-                    nextBtn.disabled = true;
-
-                    const optionsContainer = quizContainer.querySelector('.options-container');
-                    optionsContainer.addEventListener('click', handleOptionClick);
-                }
-
-                async function handleOptionClick(e) {
-                    if (e.target.tagName !== 'BUTTON') return;
-                    
-                    const selectedButton = e.target;
-                    const optionsContainer = selectedButton.parentElement;
-                    if (optionsContainer.dataset.answered) return;
-                    optionsContainer.dataset.answered = 'true';
-
-                    const feedbackEl = quizContainer.querySelector('.quiz-feedback');
-                    const questionData = quizData[currentQuestionIndex];
-                    const selectedAnswer = selectedButton.textContent;
-                    const correctAnswer = questionData.answer;
-
-                    Array.from(optionsContainer.children).forEach(btn => {
-                        btn.disabled = true;
-                        if (btn.textContent === correctAnswer) {
-                            btn.classList.add('correct');
-                        }
-                    });
-
-                    if (selectedAnswer === correctAnswer) {
-                        selectedButton.classList.add('correct');
-                        score++;
-                        const positiveFeedback = ["¡Exacto! ✨", "¡Correcto! 😎", "¡Así se hace! 🥳", "¡Genial! 🤩"];
-                        feedbackEl.textContent = positiveFeedback[Math.floor(Math.random() * positiveFeedback.length)];
-                        feedbackEl.className = 'quiz-feedback mt-4 font-bold text-lg h-6 text-green-500';
-                    } else {
-                        selectedButton.classList.add('incorrect');
-                        feedbackEl.textContent = 'La correcta está en verde. ¡Sigue así!';
-                        feedbackEl.className = 'quiz-feedback mt-4 font-bold text-lg h-6 text-pink-500';
-                    }
-                    nextBtn.disabled = false;
-
-                    // If it's the last question, save the score
-                    if (currentQuestionIndex === quizData.length - 1) {
-                        if (userId && db) { // Use the global userId
-                            const dailyScoreRef = doc(db, `artifacts/${appId}/users/${userId}/dailyScores`, `day-${dayNumber}`);
-                            try {
-                                await setDoc(dailyScoreRef, {
-                                    dayNumber: dayNumber,
-                                    score: score,
-                                    maxScore: quizData.length,
-                                    timestamp: new Date()
-                                }, { merge: true });
-                                console.log(`Score for Day ${dayNumber} saved successfully!`);
-                            } catch (e) {
-                                console.error("Error saving daily score: ", e);
-                            }
-                        }
-                    }
-                }
-
-                nextBtn.addEventListener('click', () => {
-                    currentQuestionIndex++;
-                    if (currentQuestionIndex < quizData.length) {
-                        showQuestion();
-                    } else {
-                        quizContainer.innerHTML = `<p class="text-2xl font-bold text-center gradient-text">¡Quiz Completado!</p>`;
-                        finalScoreEl.textContent = `Puntaje Final de este día: ${score} de ${quizData.length}`;
-                        dailyScoreDisplay.textContent = `Tu puntaje para este día: ${score} de ${quizData.length}`;
-                        nextBtn.style.display = 'none';
-                        progressEl.textContent = '';
-                        // Reload all course data to update overall grade
-                        loadCourseData();
-                    }
-                });
-
-                // Only show quiz if it hasn't been completed
-                if (!savedScoreData) {
-                    showQuestion();
-                }
-            }
-        };
-
-        // Function to load course data and user scores
-        async function loadCourseData() {
-            const courseContainer = document.getElementById('course-container');
-            courseContainer.innerHTML = ''; // Clear previous content
-
-            let totalScore = 0;
-            let totalMaxScore = 0;
-
-            // Fetch all daily scores for the user
-            if (userId && db) {
-                const q = query(collection(db, `artifacts/${appId}/users/${userId}/dailyScores`));
-                const querySnapshot = await getDocs(q);
-                const dailyScoresMap = {};
-                querySnapshot.forEach((doc) => {
-                    dailyScoresMap[doc.id] = doc.data();
-                });
-
-                for (let i = 0; i < courseData.length; i++) {
-                    const day = courseData[i];
-                    const dayNumber = i + 1;
-                    const savedScoreData = dailyScoresMap[`day-${dayNumber}`];
-
-                    createDayElement(day, dayNumber, savedScoreData);
-
-                    if (savedScoreData) {
-                        totalScore += savedScoreData.score;
-                        totalMaxScore += savedScoreData.maxScore;
-                    }
-                }
-            } else {
-                // If Firebase not initialized or userId not available, just create elements without saved scores
-                courseData.forEach((day, index) => {
-                    createDayElement(day, index + 1, null);
-                });
-            }
-
-            // Display overall course grade
-            const finalGradeContainer = document.createElement('div');
-            finalGradeContainer.className = 'text-center mt-8 p-6 bg-gradient-to-r from-purple-100 to-fuchsia-100 dark:from-gray-700 dark:to-gray-800 rounded-2xl shadow-lg';
-            if (totalMaxScore > 0) {
-                const percentage = ((totalScore / totalMaxScore) * 100).toFixed(2);
-                finalGradeContainer.innerHTML = `<p class="text-2xl font-bold gradient-text">Calificación Final del Curso: ${totalScore} / ${totalMaxScore} (${percentage}%)</p>`;
-            } else {
-                finalGradeContainer.innerHTML = `<p class="text-2xl font-bold gradient-text">Completa los quizzes para ver tu calificación final.</p>`;
-            }
-            courseContainer.appendChild(finalGradeContainer);
-        }
-
-        // --- LÓGICA DEL CURSOR PERSONALIZADO ---
-        const cursorDot = document.querySelector(".cursor-dot");
-        const cursorOutline = document.querySelector(".cursor-outline");
-        let mouseX = 0, mouseY = 0;
-        let outlineX = 0, outlineY = 0;
-        let stars = [];
-
-        window.addEventListener("mousemove", (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-            // Only show outline, dot is invisible
-            cursorOutline.style.opacity = 1;
-        });
-        
-        const animateCursor = () => {
-            // Movimiento elástico para el círculo exterior (aumentado a 0.5 for more responsiveness)
-            outlineX += (mouseX - outlineX) * 0.5;
-            outlineY += (mouseY - outlineY) * 0.5;
-
-            // cursorDot.style.left = `${mouseX}px`; // Removed as dot is invisible
-            // cursorDot.style.top = `${mouseY}px`; // Removed as dot is invisible
-            cursorOutline.style.left = `${outlineX}px`;
-            cursorOutline.style.top = `${outlineY}px`;
-            
-            // Crear partículas de estrella
-            if (Math.abs(mouseX - outlineX) > 1 || Math.abs(mouseY - outlineY) > 1) {
-                for (let i = 0; i < 3; i++) { // Generate more stars
-                    let star = document.createElement("div");
-                    star.classList.add("star-particle");
-                    document.body.appendChild(star);
-                    
-                    const size = Math.random() * 4 + 1; // Smaller stars
-                    star.style.width = `${size}px`;
-                    star.style.height = `${size}px`;
-                    
-                    const angle = Math.random() * 2 * Math.PI;
-                    const velocity = Math.random() * 10 + 5; // Faster velocity for stars
-                    
-                    stars.push({
-                        element: star,
-                        x: outlineX,
-                        y: outlineY,
-                        vx: Math.cos(angle) * velocity,
-                        vy: Math.sin(angle) * velocity,
-                        alpha: 1
-                    });
-                }
-            }
-            
-            // Animar partículas
-            for (let i = stars.length - 1; i >= 0; i--) {
-                let s = stars[i];
-                s.x += s.vx;
-                s.y += s.vy;
-                s.alpha -= 0.05; // Faster fade out
-                
-                if (s.alpha <= 0) {
-                    s.element.remove();
-                    stars.splice(i, 1);
-                } else {
-                    s.element.style.left = `${s.x}px`;
-                    s.element.style.top = `${s.y}px`;
-                    s.element.style.opacity = s.alpha;
-                }
-            }
-
-            requestAnimationFrame(animateCursor);
-        };
-        
-        animateCursor();
-
-    </script>
+    </div>
 </body>
 </html>
